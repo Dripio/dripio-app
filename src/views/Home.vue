@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <AddGarden msg="Welcome to Your Dripio App"/>
     <v-ons-button @click="logout">Logout</v-ons-button>
   </div>
 </template>
@@ -8,12 +8,12 @@
 <script>
 import firebase from 'firebase';
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import AddGarden from '@/components/AddGarden.vue'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    AddGarden
   },
   methods: {
     logout: function() {

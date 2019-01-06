@@ -1,10 +1,10 @@
 <template>
   <div class="login">
     <h3>Sign In</h3>
-    <input type="text" v-model="email" placeholder="Email"></br>
-    <input type="password" v-model="password" placeholder="Password"><br>
-    <v-ons-button @click="login">Connection</v-ons-button>
-    <p>You don't have an account? You can <router-link to="/signup">create one</router-link></p>
+    <v-ons-input type="email" v-model="email" placeholder="Email"></v-ons-input></br>
+    <v-ons-input type="password" v-model="password" placeholder="Password"></v-ons-input><br>
+    <v-ons-button class="button-margin" @click="login">Connection</v-ons-button>
+    <p>You don't have an account? You can <router-link to="/signup">create one</router-link>.</p>
   </div>
 </template>
 
@@ -38,16 +38,9 @@
   .login {
     margin-top: 40px;
   }
-  input {
-    margin: 10px 0;
-    width: 20%;
-    padding: 15px;
+  .button-margin {
+    margin-top: 40px;
   }
-  /* button {
-    margin-top: 20px;
-    width: 10%;
-    cursor: pointer;
-  } */
   p {
     margin-top: 40px;
     font-size: 13px;

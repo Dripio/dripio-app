@@ -1,0 +1,38 @@
+
+<svg width="102px" height="156px" viewBox="0 0 102 156" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon &amp; Logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-28.3%" y="-18.0%" width="156.7%" height="136.6%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="7" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.160043025 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <polygon id="path-2" points="0 0.190390133 89.9281297 0.190390133 89.9281297 90.7324235 0 90.7324235"></polygon>
+        <polygon id="path-4" points="0 0.30452297 89.9281297 0.30452297 89.9281297 30.0835206 0 30.0835206"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-6" transform="translate(-137.000000, -100.000000)">
+            <g id="Icon-&amp;-Logo" transform="translate(143.000000, 100.000000)">
+                <g id="Oval-2" transform="translate(19.000000, 12.000000)" fill="#372A8F" stroke="#979797">
+                    <ellipse id="Oval" cx="28.5" cy="34.5" rx="28.5" ry="34.5"></ellipse>
+                </g>
+                <g id="Group-7" filter="url(#filter-1)" transform="translate(0.000000, 0.770000)">
+                    <g id="Group-3">
+                        <mask id="mask-3" fill="white">
+                            <use xlink:href="#path-2"></use>
+                        </mask>
+                        <g id="Clip-2"></g>
+                        <path d="M45.0638919,71.3039756 C54.9578595,71.3039756 62.9785297,63.4009202 62.9785297,53.6519138 C62.9785297,43.9029074 48.3544865,19.7664148 45.0638919,19.7664148 C41.7732973,19.7664148 27.1467892,43.9029074 27.1467892,53.6519138 C27.1467892,63.4009202 35.1699243,71.3039756 45.0638919,71.3039756 M44.9628324,90.7324235 C25.2611676,90.7324235 14.3073081,90.7324235 7.15427027,83.5299848 C-0.00123243243,76.3275461 -0.00123243243,65.2990448 -0.00123243243,45.463146 C-0.00123243243,25.6222782 -0.00123243243,14.5962613 7.15427027,7.39133817 C14.3073081,0.18889946 25.2611676,0.18889946 44.9628324,0.18889946 C64.6669622,0.18889946 75.6208216,0.18889946 82.7738595,7.39133817 C89.9293622,14.5962613 89.9293622,25.6222782 89.9293622,45.463146 C89.9293622,65.2990448 89.9293622,76.3275461 82.7738595,83.5299848 C75.6208216,90.7324235 64.6669622,90.7324235 44.9628324,90.7324235" id="Fill-1" fill="#FFFFFF" mask="url(#mask-3)"></path>
+                    </g>
+
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
