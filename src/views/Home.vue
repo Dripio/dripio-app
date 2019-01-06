@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <button @click="logout">Logout</button>
+    <v-ons-button @click="logout">Logout</v-ons-button>
   </div>
 </template>
 

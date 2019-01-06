@@ -1,8 +1,15 @@
+// Webpack CSS import
+import 'onsenui/css/onsenui.css';
+import 'onsenui/css/onsen-css-components.css';
+
 import Vue from 'vue'
 import firebase from 'firebase'
+import VueOnsen from 'vue-onsenui'  // This imports 'onsenui', so no need to import it separately
 
 import App from './App.vue'
 import router from './router'
+
+Vue.use(VueOnsen)  // VueOnsen set here as plugin to VUE. Done automatically if a call to window.Vue exists in the startup code.
 
 Vue.config.productionTip = false
 
