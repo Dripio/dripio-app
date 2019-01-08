@@ -27,6 +27,8 @@ let config = {
 
 firebase.initializeApp(config)
 const db = firebase.firestore()
+const settings = {/* your settings... */ timestampsInSnapshots: true};
+  db.settings(settings);
 
 // at user login event
 firebase.auth().onAuthStateChanged((user) => {
