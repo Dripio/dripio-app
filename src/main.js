@@ -3,7 +3,9 @@ import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
 
 import Vue from 'vue'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
 import VueOnsen from 'vue-onsenui'  // This imports 'onsenui', so no need to import it separately
 
 import App from './App.vue'
@@ -32,34 +34,38 @@ const settings = {/* your settings... */ timestampsInSnapshots: true};
 
 // at user login event
 firebase.auth().onAuthStateChanged((user) => {
+
   let usersRef = db.collection("users");
 
   if (user) { // if user is logged in.
+
       let docRef = usersRef.doc(user.email);
 
       docRef.get().then(function(doc) {
-        if (!doc.exists) { // if user isn't in db yet
+
+        // if user isn't in db yet
+        if (!doc.exists) {
+
           // create user entry
-          usersRef.add({
-            email: user.email
-          })
-          .then(function(newUser){
-            newUser.collection("gardens").add({
+          let newUser = usersRef
+            .doc(user.email);
+
+          // add email property to new user
+          newUser
+            .set({
+              email: user.email
+            });
+
+          // create user's first garden
+          newUser
+            .collection("gardens")
+            .doc("garden_01")
+            .set({
               name: "Garden 1"
-            })
-            .then(function(garden) {
-              console.log("garden succesfully added: ", garden);
-            })
-            .catch(function(error) {
-              console.error("error adding initial garden: ", error);
-            })
-          })
-          .catch(function(error) {
-            console.error("Error adding user: ", error);
-          });
-          //perhaps chain a `.then(function(docRef){})` to create a nested gardens collection
-        }
-      }).catch(function (error) {
+            });
+      }})
+      // error debug message for docRef.get()
+      .catch(function (error) {
         console.log("Error getting document:", error);
       });
   }
