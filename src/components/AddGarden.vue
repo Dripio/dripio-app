@@ -1,17 +1,18 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      You can start by adding your garden
-    </p>
-
+    <ul>
+      <!-- <li v-for="garden in gardens"> -->
+        <!-- <v-ons-button>{{ garden.name }} </v-ons-button> -->
+      <!-- </li> -->
+    </ul>
+    <v-ons-button>Add Garden<v-ons-button>
 </template>
 
 <script>
 export default {
   name: 'AddGarden',
   props: {
-    msg: String
+    // gardens: Array
   }
 }
 </script>

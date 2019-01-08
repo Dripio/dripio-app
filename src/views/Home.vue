@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <AddGarden msg="Welcome to Your Dripio App"/>
+    <!-- <AddGarden array=getGardens(  )/> -->
+    <!--make that welcome message fade away a sec after first user interaction-->
     <v-ons-button @click="logout">Logout</v-ons-button>
   </div>
 </template>
@@ -8,12 +9,12 @@
 <script>
 import firebase from 'firebase';
 // @ is an alias to /src
-import AddGarden from '@/components/AddGarden.vue'
+// import AddGarden from '@/components/AddGarden.vue'
 
 export default {
   name: 'home',
   components: {
-    AddGarden
+    // AddGarden
   },
   methods: {
     logout: function() {

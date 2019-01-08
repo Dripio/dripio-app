@@ -16,21 +16,29 @@ Vue.config.productionTip = false
 let app = '';
 
 // Initialize Firebase
-var config = {
+let config = {
   apiKey: "***REMOVED***",
   authDomain: "***REMOVED***",
-  databaseURL: "https://***REMOVED***.firebaseio.com",
+  databaseURL: "***REMOVED***",
   projectId: "***REMOVED***",
   storageBucket: "***REMOVED***.appspot.com",
   messagingSenderId: "***REMOVED***"
 };
 
-firebase.initializeApp(config);
+firebase.initializeApp(config)
+const db = firebase.firestore()
 
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
       router,
+      // data: {
+      //   gardens: {},
+      // }
+      // firebase: {
+      //   gardens: db.collection('gardens')
+      // }
+    // },
       render: h => h(App)
     }).$mount('#app');
   }
