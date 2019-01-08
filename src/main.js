@@ -28,17 +28,43 @@ let config = {
 firebase.initializeApp(config)
 const db = firebase.firestore()
 
-firebase.auth().onAuthStateChanged(() => {
+// at user login event
+firebase.auth().onAuthStateChanged((user) => {
+  let usersRef = db.collection("users");
+
+  if (user) { // if user is logged in.
+      let docRef = usersRef.doc(user.email);
+
+      docRef.get().then(function(doc) {
+        if (!doc.exists) { // if user isn't in db yet
+          // create user entry
+          usersRef.add({
+            email: user.email
+          })
+          .then(function(newUser){
+            newUser.collection("gardens").add({
+              name: "Garden 1"
+            })
+            .then(function(garden) {
+              console.log("garden succesfully added: ", garden);
+            })
+            .catch(function(error) {
+              console.error("error adding initial garden: ", error);
+            })
+          })
+          .catch(function(error) {
+            console.error("Error adding user: ", error);
+          });
+          //perhaps chain a `.then(function(docRef){})` to create a nested gardens collection
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+  }
+
   if (!app) {
     app = new Vue({
       router,
-      // data: {
-      //   gardens: {},
-      // }
-      // firebase: {
-      //   gardens: db.collection('gardens')
-      // }
-    // },
       render: h => h(App)
     }).$mount('#app');
   }
