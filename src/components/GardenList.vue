@@ -1,7 +1,8 @@
 <template>
   <div>
       <div v-for="garden in gardens">
-        <v-ons-button v-bind:to="{ name: 'EditGarden', params: { garden: garden.slug }}" @click="editGarden">{{ garden.name }} </v-ons-button>
+        <!-- id: garden.slug -->
+        <v-ons-button @click="editGarden(garden.slug)">{{ garden.name }} </v-ons-button>
       </div>
       <v-ons-button @click="addGarden">Add Garden</v-ons-button>
     </div>
@@ -38,8 +39,9 @@
             slug: this.generateUUID()
           });
       },
-      editGarden: function() {
-        this.$router.push({ name: 'EditGarden'})
+      editGarden: function(gardenButton) {
+        console.log(gardenButton);
+        this.$router.push({ name: 'EditGarden', params: { id: gardenButton } } )
       },
       generateUUID () {
         let d = new Date().getTime()

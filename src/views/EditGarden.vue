@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import firebase from 'firebase';
-
+import { db } from '../main'
+import { auth } from '../main'
+// console.log("the slug is " + this.$route.params);
 export default {
   name: 'EditGarden',
   methods: {
@@ -15,18 +16,23 @@ export default {
   },
   data() {
     return {
-      gardenname: '',
+      gardenname: this.$route.params.id
     }
   },
-  firestore () {
-    return {
-      // gardenName: db.collection('users')
-      //   .doc( auth.currentUser.email )
-      //   .collection('gardens')
-      //   .doc('garden_01')
-      //   .name;
-    }
-  }
+  // firestore () {
+  //
+  //   return {
+  //     gardenname: //db.collection('users')
+  //     // .doc( auth.currentUser.email )
+  //     // .collection('gardens')
+  //     // .where('slug', '==', this.$route.params.id).get().then((querySnapshot) => {
+  //     //   querySnapshot.forEach((doc) => {
+  //     //     console.log(doc.id, ' => ', doc.data())
+  //     //     this.gardenname = doc.data().name
+  //     //   })
+  //     // })
+  //   }
+  // }
 }
 </script>
 
