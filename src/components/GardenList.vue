@@ -1,7 +1,7 @@
 <template>
   <div>
       <div v-for="garden in gardens">
-        <v-ons-button>{{ garden.name }} </v-ons-button>
+        <v-ons-button @click="editGarden">{{ garden.name }} </v-ons-button>
       </div>
       <v-ons-button @click="addGarden">Add Garden</v-ons-button>
     </div>
@@ -35,9 +35,9 @@
           .set({
             name: defaultNameOfGarden
           });
-          // .collection('gardens')
-          // .add( { name: "Extra Garden!"} );
-
+      },
+      editGarden: function() {
+        this.$router.push({ name: 'EditGarden'})
       }
     },
     data () {

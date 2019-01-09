@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
+import EditGarden from './views/EditGarden.vue'
 
 Vue.use(Router)
 
@@ -12,7 +13,8 @@ const router = new Router({
   // mode: 'history',
   // base: process.env.BASE_URL,
 
-  routes: [{
+  routes: [
+    {
       path: '*',
       redirect: '/login'
     },
@@ -37,6 +39,14 @@ const router = new Router({
       path: '/signup',
       name: 'SignUp',
       component: SignUp
+    },
+    {
+      path: '/edit-garden',
+      name: 'EditGarden',
+      component: EditGarden,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

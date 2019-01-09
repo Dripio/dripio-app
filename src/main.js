@@ -14,7 +14,6 @@ import router from './router'
 
 Vue.use(VueFire)
 Vue.use(VueOnsen)  // VueOnsen set here as plugin to VUE. Done automatically if a call to window.Vue exists in the startup code.
-
 Vue.config.productionTip = false
 
 let app = '';
