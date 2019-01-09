@@ -40,7 +40,6 @@
           });
       },
       editGarden: function(gardenButton) {
-        console.log(gardenButton)
         this.$router.push({
           name: 'EditGarden',
           params: { id: gardenButton.slug },

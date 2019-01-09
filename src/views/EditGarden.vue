@@ -9,14 +9,22 @@
     <div class="margin-top">
       <label for="gardenNaming">Garden Name: </label>
     </div>
-    <v-ons-input v-model="gardenname" id="gardenNaming"></v-ons-input>
+    <v-ons-input v-model="gardenname"></v-ons-input>
+
+    <!-- Later: use a v-if to make this conditionally display, only if user makes any changes -->
+    <div class="margin-top">Your garden will be updated to {{ gardenname }} when you click the button.</div>
     <div>
       <v-ons-button @click="updateName">Update Garden Name</v-ons-button>
     </div>
 
-    <!-- use a v-if to make this conditionally display, only if user makes any changes -->
-    <div>Your garden name has been updated to {{ gardenname }}</div>
-
+    <div class="margin-top">
+      <p>Connect to Dripio Controller</p>
+      <v-ons-fab ripple>
+        <ons-icon
+          icon="fa-wifi">
+        </ons-icon>
+      </v-ons-fab>
+    </div>
 
   </v-ons-page>
 </template>
@@ -24,7 +32,7 @@
 <script>
 import { db } from '../main'
 import { auth } from '../main'
-// console.log("the slug is " + this.$route.params);
+
 export default {
   name: 'EditGarden',
   methods: {
@@ -37,32 +45,12 @@ export default {
           { name: this.gardenname },
           { merge: true }
         );
-      //   .where('slug', '==', this.$route.params.id).get()
-      //   .then((querySnapshot) => {
-      //     querySnapshot.forEach((doc) => {
-      //       // console.log(doc.id, ' => ', doc.data())
-      //       this.gardenname = doc.data().name
-      //     })
-      //   });
-      //
-      //   console.log(gardenRef);
-
-        // gardenRef.set({
-        //   name: "hellooooo"
-        // }, { merge: true })
-      // console.log(gardenRef.name);
-
-
-      // .get()
-      // .then(function(doc) {
-      //   doc.set({ name: this.gardenname })
-      // })
     }
   },
   data() {
     return {
       gardenname: 'Garden 1', //default name
-      docname: 'garden_01' //default docname
+      docname: 'garden_01', //default docname,
     }
   },
   created () {
@@ -81,6 +69,6 @@ export default {
     text-align: center;
   }
   .margin-top {
-    margin-top: 40px;
+    margin: 50px 0px 10px;
   }
 </style>
