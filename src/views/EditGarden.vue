@@ -23,11 +23,14 @@ export default {
   name: 'EditGarden',
   methods: {
     updateName () {
-      // console.log(this.$route.params.id);
-      console.log('query is working: ' + this.name);
-      // let gardenRef = db.collection('users')
-      //   .doc( auth.currentUser.email )
-      //   .collection('gardens')
+      let gardenRef = db.collection('users')
+        .doc( auth.currentUser.email )
+        .collection('gardens')
+        .doc ( this.docname )
+        .set(
+          { name: this.gardenname },
+          { merge: true }
+        );
       //   .where('slug', '==', this.$route.params.id).get()
       //   .then((querySnapshot) => {
       //     querySnapshot.forEach((doc) => {
