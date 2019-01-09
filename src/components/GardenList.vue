@@ -20,16 +20,20 @@
     },
     methods: {
       addGarden: function() {
-        console.log("attempting to add garden...")
+        let numOfNextGarden = this.gardens.length + 1;
 
-        // let numOfGardens = gardens.length;
+        let gardenId = "garden_";
+        gardenId += (numOfNextGarden < 10) ? "0" + numOfNextGarden
+          : numOfNextGarden;
+
+        let defaultNameOfGarden = "Garden " + numOfNextGarden;
 
         db.collection('users')
           .doc( auth.currentUser.email )
           .collection('gardens')
-          .doc( "good Garden" )
+          .doc( gardenId )
           .set({
-            name: "Extra Garden"
+            name: defaultNameOfGarden
           });
           // .collection('gardens')
           // .add( { name: "Extra Garden!"} );
@@ -55,4 +59,6 @@
   .button {
     margin: 10px 0;
   }
+
+  /* make sure this page is scrollable, in case the user adds lots of gardens */
 </style>
