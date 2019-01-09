@@ -6,11 +6,13 @@ import Vue from 'vue'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+import VueFire from 'vuefire'
 import VueOnsen from 'vue-onsenui'  // This imports 'onsenui', so no need to import it separately
 
 import App from './App.vue'
 import router from './router'
 
+Vue.use(VueFire)
 Vue.use(VueOnsen)  // VueOnsen set here as plugin to VUE. Done automatically if a call to window.Vue exists in the startup code.
 
 Vue.config.productionTip = false
@@ -28,9 +30,11 @@ let config = {
 };
 
 firebase.initializeApp(config)
-const db = firebase.firestore()
+export const db = firebase.firestore()
 const settings = {/* your settings... */ timestampsInSnapshots: true};
   db.settings(settings);
+
+export const auth = firebase.auth()
 
 // at user login event
 firebase.auth().onAuthStateChanged((user) => {
@@ -63,7 +67,8 @@ firebase.auth().onAuthStateChanged((user) => {
             .set({
               name: "Garden 1"
             });
-      }})
+        }
+      })
       // error debug message for docRef.get()
       .catch(function (error) {
         console.log("Error getting document:", error);

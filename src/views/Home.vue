@@ -1,20 +1,18 @@
 <template>
   <div class="home">
-    <!-- <AddGarden array=getGardens(  )/> -->
-    <!--make that welcome message fade away a sec after first user interaction-->
+    <GardenList />
     <v-ons-button @click="logout">Logout</v-ons-button>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase';
-// @ is an alias to /src
-// import AddGarden from '@/components/AddGarden.vue'
+import GardenList from '@/components/GardenList.vue'
 
 export default {
   name: 'home',
   components: {
-    // AddGarden
+    GardenList
   },
   methods: {
     logout: function() {
@@ -25,3 +23,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  v-ons-button {
+    margin-top: 10px;
+  }
+</style>
