@@ -1,7 +1,7 @@
 <template>
   <div>
       <div v-for="garden in gardens">
-        <v-ons-button @click="editGarden">{{ garden.name }} </v-ons-button>
+        <v-ons-button v-bind:to="{ name: 'EditGarden', params: { garden: garden.slug }}" @click="editGarden">{{ garden.name }} </v-ons-button>
       </div>
       <v-ons-button @click="addGarden">Add Garden</v-ons-button>
     </div>
@@ -19,6 +19,7 @@
       // gardens: Array
     },
     methods: {
+      // perhaps consolidate main.js to use this addGarden function in the initial garden creation.
       addGarden: function() {
         let numOfNextGarden = this.gardens.length + 1;
 
@@ -33,11 +34,21 @@
           .collection('gardens')
           .doc( gardenId )
           .set({
-            name: defaultNameOfGarden
+            name: defaultNameOfGarden,
+            slug: this.generateUUID()
           });
       },
       editGarden: function() {
         this.$router.push({ name: 'EditGarden'})
+      },
+      generateUUID () {
+        let d = new Date().getTime()
+        let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          let r = (d + Math.random() * 16) % 16 | 0
+          d = Math.floor(d / 16)
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
+        })
+        return uuid
       }
     },
     data () {
@@ -53,6 +64,8 @@
       }
     }
   }
+
+
 </script>
 
 <style>

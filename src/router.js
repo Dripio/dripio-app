@@ -41,7 +41,7 @@ const router = new Router({
       component: SignUp
     },
     {
-      path: '/edit-garden',
+      path: '/:garden',
       name: 'EditGarden',
       component: EditGarden,
       meta: {

@@ -1,5 +1,8 @@
 <template>
-  <div>Coming soon...</div>
+  <div>
+    <v-ons-input v-model="gardenname"></v-ons-input>
+    coming soon...
+  </div>
 </template>
 
 <script>
@@ -9,6 +12,20 @@ export default {
   name: 'EditGarden',
   methods: {
 
+  },
+  data() {
+    return {
+      gardenname: '',
+    }
+  },
+  firestore () {
+    return {
+      // gardenName: db.collection('users')
+      //   .doc( auth.currentUser.email )
+      //   .collection('gardens')
+      //   .doc('garden_01')
+      //   .name;
+    }
   }
 }
 </script>
