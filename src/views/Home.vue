@@ -26,7 +26,4 @@ export default {
 
 <style>
 
-  v-ons-button {
-    margin-top: 10px;
-  }
 </style>
