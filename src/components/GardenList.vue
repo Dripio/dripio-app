@@ -2,7 +2,7 @@
   <div>
       <div v-for="garden in gardens">
         <!-- id: garden.slug -->
-        <v-ons-button @click="editGarden(garden.slug)">{{ garden.name }} </v-ons-button>
+        <v-ons-button @click="editGarden(garden)">{{ garden.name }} </v-ons-button>
       </div>
       <v-ons-button @click="addGarden">Add Garden</v-ons-button>
     </div>
@@ -40,8 +40,13 @@
           });
       },
       editGarden: function(gardenButton) {
-        console.log(gardenButton);
-        this.$router.push({ name: 'EditGarden', params: { id: gardenButton } } )
+        console.log(gardenButton)
+        this.$router.push({
+          name: 'EditGarden',
+          params: { id: gardenButton.slug },
+          query: {
+            docname: gardenButton.id,
+            name: gardenButton.name} })
       },
       generateUUID () {
         let d = new Date().getTime()
