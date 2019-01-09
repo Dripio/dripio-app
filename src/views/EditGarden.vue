@@ -1,7 +1,9 @@
 <template>
   <div>
-    <v-ons-input v-model="gardenname"></v-ons-input>
-    coming soon...
+    <div>
+    <label for="gardenNaming">Garden Name: </label>
+  </div>
+    <v-ons-input v-model="gardenname" id="gardenNaming"></v-ons-input>
   </div>
 </template>
 
@@ -16,28 +18,28 @@ export default {
   },
   data() {
     return {
-      gardenname: this.$route.params.id
+      gardenname: ''
     }
   },
-  // firestore () {
-  //
-  //   return {
-  //     gardenname: //db.collection('users')
-  //     // .doc( auth.currentUser.email )
-  //     // .collection('gardens')
-  //     // .where('slug', '==', this.$route.params.id).get().then((querySnapshot) => {
-  //     //   querySnapshot.forEach((doc) => {
-  //     //     console.log(doc.id, ' => ', doc.data())
-  //     //     this.gardenname = doc.data().name
-  //     //   })
-  //     // })
-  //   }
-  // }
+  firestore () {
+
+    return {
+      gardenname: db.collection('users')
+      .doc( auth.currentUser.email )
+      .collection('gardens')
+      .where('slug', '==', this.$route.params.id).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, ' => ', doc.data())
+          this.gardenname = doc.data().name
+        })
+      })
+    }
+  }
 }
 </script>
 
 <style>
-  v-ons-button {
-    margin-top: 10px;
-  }
+.text-input {
+  text-align: center;
+}
 </style>
