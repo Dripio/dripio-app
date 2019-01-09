@@ -1,14 +1,10 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.svg">
     <router-view/>
   </div>
 </template>
 
 <style>
-  img {
-    margin-top: 40px;
-  }
 
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;

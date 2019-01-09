@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <img alt="Vue logo" src="../assets/logo.svg">
     <h3>Sign In</h3>
     <v-ons-input type="email" v-model="email" placeholder="Email"></v-ons-input></br>
     <v-ons-input type="password" v-model="password" placeholder="Password"></v-ons-input><br>
@@ -35,6 +36,9 @@
 </script>
 
 <style scoped>
+  img {
+    margin-top: 40px;
+  }
   .login {
     margin-top: 40px;
   }

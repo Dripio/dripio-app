@@ -1,18 +1,24 @@
 <template>
-  <div>
-    <div>
+  <v-ons-page>
+    <v-ons-toolbar>
+      <div class="left">
+        <v-ons-back-button @click="$router.go(-1)">Overview</v-ons-back-button>
+      </div>
+      <div class="center">Garden Settings</div>
+    </v-ons-toolbar>
+    <div class="margin-top">
       <label for="gardenNaming">Garden Name: </label>
     </div>
     <v-ons-input v-model="gardenname" id="gardenNaming"></v-ons-input>
     <div>
-      <v-ons-button @click="updateName">OK</v-ons-button>
+      <v-ons-button @click="updateName">Update Garden Name</v-ons-button>
     </div>
 
     <!-- use a v-if to make this conditionally display, only if user makes any changes -->
     <div>Your garden name has been updated to {{ gardenname }}</div>
 
 
-  </div>
+  </v-ons-page>
 </template>
 
 <script>
@@ -67,24 +73,14 @@ export default {
       this.docname = this.$route.query.docname;
     }
   }
-  // firestore () {
-  //   return {
-  //     gardenname: db.collection('users')
-  //     .doc( auth.currentUser.email )
-  //     .collection('gardens')
-  //     .where('slug', '==', this.$route.params.id.id).get().then((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         // console.log(doc.id, ' => ', doc.data())
-  //         this.gardenname = doc.data().name
-  //       })
-  //     })
-  //   }
-  // }
 }
 </script>
 
 <style>
-.text-input {
-  text-align: center;
-}
+  .text-input {
+    text-align: center;
+  }
+  .margin-top {
+    margin-top: 40px;
+  }
 </style>
