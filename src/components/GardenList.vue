@@ -21,6 +21,19 @@
     methods: {
       addGarden: function() {
         console.log("attempting to add garden...")
+
+        // let numOfGardens = gardens.length;
+
+        db.collection('users')
+          .doc( auth.currentUser.email )
+          .collection('gardens')
+          .doc( "good Garden" )
+          .set({
+            name: "Extra Garden"
+          });
+          // .collection('gardens')
+          // .add( { name: "Extra Garden!"} );
+
       }
     },
     data () {
