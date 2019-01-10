@@ -9,7 +9,17 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.dripio.www"
+    },
+    "wifiwizard2": {
+      "PACKAGE_NAME": "com.dripio.www"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.dripio.www"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.dripio.www"
+    }
+  }
 }

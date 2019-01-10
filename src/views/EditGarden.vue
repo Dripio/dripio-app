@@ -19,7 +19,7 @@
 
     <div class="margin-top">
       <p>Connect to Dripio Controller</p>
-      <v-ons-fab ripple>
+      <v-ons-fab ripple @click="importedFunctionWrapper">
         <ons-icon
           icon="fa-wifi">
         </ons-icon>
@@ -32,6 +32,7 @@
 <script>
 import { db } from '../main'
 import { auth } from '../main'
+import { checkConnection } from '../main'
 
 export default {
   name: 'EditGarden',
@@ -45,6 +46,9 @@ export default {
           { name: this.gardenname },
           { merge: true }
         );
+    },
+    importedFunctionWrapper () {
+      checkConnection()
     }
   },
   data() {

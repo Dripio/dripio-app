@@ -83,7 +83,6 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-
 function generateUUID () {
   let d = new Date().getTime()
   let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -92,4 +91,22 @@ function generateUUID () {
     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
   })
   return uuid
+}
+
+export function checkConnection() {
+    let Connection = navigator.connection;
+
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    alert('Connection type: ' + states[networkState]);
 }

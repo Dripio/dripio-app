@@ -16,7 +16,10 @@
  "dependencies": {
   "cordova-android": "^7.1.4",
   "cordova-ios": "^4.5.5",
+  "cordova-plugin-network-information": "^2.0.1",
   "cordova-plugin-whitelist": "^1.3.3",
+  "cordova-plugin-wifiwizard2": "git+https://github.com/tripflex/wifiwizard2.git",
+  "es6-promise-plugin": "^4.1.0",
   "firebase": "^5.7.2",
   "onsenui": "^2.10.6",
   "vue": "^2.5.2",
@@ -93,7 +96,9 @@
  ],
  "cordova": {
   "plugins": {
-   "cordova-plugin-whitelist": {}
+   "cordova-plugin-whitelist": {},
+   "wifiwizard2": {},
+   "cordova-plugin-network-information": {}
   },
   "platforms": [
    "ios",
