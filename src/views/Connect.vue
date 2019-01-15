@@ -2,8 +2,7 @@
   <div>
     <h1 v-if="hideSettings">{{status}}</h1>
     <template v-else>
-      <div>
-        <v-ons-page v-if="hideValveSetup">
+        <v-ons-page>
           <v-ons-toolbar>
             <div class="left">
               <v-ons-back-button @click="$router.go(-2)">Home</v-ons-back-button>
@@ -21,19 +20,37 @@
             </ons-icon>
           </v-ons-button>
 
-          <div class="lg-margin-top">
-            <v-ons-button>
-              <ons-icon @click="addValve"
+
+
+          <v-ons-list-header class="lg-margin-top">Valves</v-ons-list-header>
+
+          <!--ul tag is *required* around a v-for for functionality,
+          and a v-ons-list tag is *preferred* around a v-ons-list-item for UI. -->
+          <ul>
+            <v-ons-list>
+            <!--v-on:remove="valves.splice(index, 1)" can be added later-->
+            <!-- v-on:click="$emit(\'remove\')" can be added later-->
+            <v-ons-list-item tappable
+              v-for="(valve, index) in valves"
+              >
+              <div class="center">
+                {{ valve }}
+              </div>
+            </v-ons-list-item>
+          </v-ons-list>
+          </ul>
+          <v-ons-button
+            @click="$ons.notification.prompt('What\'s your valve\'s name?')
+              .then((result)=>{
+                addNewValve(result);
+              })"
+              >
+              <ons-icon @click="updateName"
                 icon="fa-plus">
               </ons-icon>
             </v-ons-button>
-          </div>
 
         </v-ons-page>
-        <div v-else>
-          <v-ons-button @click="submitValve">OK</v-ons-button>
-        </div>
-      </div>
     </template>
   </div>
 </template>
@@ -41,6 +58,8 @@
 <script>
 import { db } from '../main'
 import { auth } from '../main'
+import { Vue } from '../main'
+
 
 export default {
   name: 'Connect',
@@ -48,35 +67,26 @@ export default {
     return {
       status: "Connecting...",
       hideSettings: true,
-      hideValveSetup: true,
       controllername: 'Controller 1',
-      // controllername: something from database via router query
+      valves: [
+      ]
     }
   },
   methods: {
     updateName () {
       //update name in database
     },
-    addValve() {
-      this.hideValveSetup = false;
-    },
-    submitValve() {
-      this.hideValveSetup = true;
+    addNewValve (name) {
+      this.valves.push(name)
     }
-  },
-  created(){
-    // console.log(this.$route.params.garden);
-    // console.log(this.$route.query.garden)
-    // console.log('something')
-
   },
   mounted(){
     setTimeout(() => {
       this.status = "Connected!"
-    }, 3); //change to 3000
+    }, 2200);
     setTimeout(() => {
       this.hideSettings = false
-    }, 4); //change to 4000
+    }, 3000);
   }
 }
 </script>
