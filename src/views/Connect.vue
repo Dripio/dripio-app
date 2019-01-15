@@ -3,12 +3,15 @@
     <h1 v-if="hideSettings">{{status}}</h1>
     <template v-else>
         <v-ons-page>
+
           <v-ons-toolbar>
+            <div class="center">Controller Settings</div>
             <div class="left">
               <v-ons-back-button @click="$router.go(-2)">Home</v-ons-back-button>
             </div>
-            <div class="center">Controller Settings</div>
+
           </v-ons-toolbar>
+
           <div class="sm-margin-top">{{ $route.params.name }}</div>
           <div class="lg-margin-top">
             <label for="controllername">Controller Name</label>
@@ -16,7 +19,7 @@
           <v-ons-input v-model="controllername" input-id="controllername"></v-ons-input>
           <v-ons-button>
             <ons-icon @click="updateName"
-              icon="fa-check">
+              icon="ion-checkmark, material:check">
             </ons-icon>
           </v-ons-button>
 
@@ -46,7 +49,7 @@
               })"
               >
               <ons-icon @click="updateName"
-                icon="fa-plus">
+                icon="ion-add, material:plus">
               </ons-icon>
             </v-ons-button>
 

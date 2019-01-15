@@ -23,7 +23,7 @@
       <p>Add a Dripio Controller</p>
       <v-ons-fab ripple @click="connect">
         <ons-icon
-          icon="fa-wifi">
+          icon="ion-wifi, material:wifi">
         </ons-icon>
       </v-ons-fab>
     </div>
