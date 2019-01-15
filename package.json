@@ -14,18 +14,19 @@
   "build": "node build/build.js"
  },
  "dependencies": {
-  "cordova-android": "^7.1.4",
+  "cordova-browser": "^5.0.4",
   "cordova-ios": "^4.5.5",
+  "cordova-plugin-battery-status": "^2.0.2",
   "cordova-plugin-network-information": "^2.0.1",
   "cordova-plugin-whitelist": "^1.3.3",
-  "cordova-plugin-wifiwizard2": "git+https://github.com/tripflex/wifiwizard2.git",
   "es6-promise-plugin": "^4.1.0",
   "firebase": "^5.7.2",
   "onsenui": "^2.10.6",
   "vue": "^2.5.2",
   "vue-onsenui": "^2.6.1",
   "vue-router": "^3.0.1",
-  "vuefire": "^2.0.0-alpha.20"
+  "vuefire": "^2.0.0-alpha.20",
+  "wifiwizard2": "^3.1.0"
  },
  "devDependencies": {
   "autoprefixer": "^7.1.2",
@@ -97,12 +98,13 @@
  "cordova": {
   "plugins": {
    "cordova-plugin-whitelist": {},
-   "wifiwizard2": {},
-   "cordova-plugin-network-information": {}
+   "cordova-plugin-network-information": {},
+   "cordova-plugin-battery-status": {},
+   "wifiwizard2": {}
   },
   "platforms": [
    "ios",
-   "android"
+   "browser"
   ]
  }
 }

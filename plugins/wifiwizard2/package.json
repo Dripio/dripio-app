@@ -1,24 +1,27 @@
 {
-  "_from": "git+https://github.com/tripflex/wifiwizard2.git",
-  "_id": "cordova-plugin-wifiwizard2@3.1.0",
+  "_from": "wifiwizard2@3.1.0",
+  "_id": "wifiwizard2@3.1.0",
   "_inBundle": false,
-  "_integrity": "",
-  "_location": "/cordova-plugin-wifiwizard2",
+  "_integrity": "sha512-RgsbQuWX2h9QN+s8RpLASfYgAGuZEhK/Mzxkq8pajFQdkMsqMZJnx01FPQLiGXnYhSKa4XWswD5iifxT+CSIUg==",
+  "_location": "/wifiwizard2",
   "_phantomChildren": {},
   "_requested": {
-    "type": "git",
-    "raw": "https://github.com/tripflex/wifiwizard2",
-    "rawSpec": "https://github.com/tripflex/wifiwizard2",
-    "saveSpec": "git+https://github.com/tripflex/wifiwizard2.git",
-    "fetchSpec": "https://github.com/tripflex/wifiwizard2.git",
-    "gitCommittish": null
+    "type": "version",
+    "registry": true,
+    "raw": "wifiwizard2@3.1.0",
+    "name": "wifiwizard2",
+    "escapedName": "wifiwizard2",
+    "rawSpec": "3.1.0",
+    "saveSpec": null,
+    "fetchSpec": "3.1.0"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "git+https://github.com/tripflex/wifiwizard2.git#4578a2d66d8404f02759efb62a2b96004ad50d20",
-  "_spec": "https://github.com/tripflex/wifiwizard2",
+  "_resolved": "https://registry.npmjs.org/wifiwizard2/-/wifiwizard2-3.1.0.tgz",
+  "_shasum": "8794029a0a35f496acc10207dba7951ad6b45f63",
+  "_spec": "wifiwizard2@3.1.0",
   "_where": "/Users/janstoneman/Dripio",
   "author": {
     "name": "Myles McNamara"
@@ -55,7 +58,7 @@
     "cordova-ios"
   ],
   "license": "Apache 2.0",
-  "name": "cordova-plugin-wifiwizard2",
+  "name": "wifiwizard2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tripflex/wifiwizard2.git"

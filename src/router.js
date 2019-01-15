@@ -6,6 +6,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
 import EditGarden from './views/EditGarden.vue'
+import Connect from './views/Connect.vue'
 
 Vue.use(Router)
 
@@ -47,7 +48,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }
+    },
+    {
+      path: '/connect/:name',
+      name: 'Connect',
+      component: Connect,
+      meta: {
+        requiresAuth: true
+      }
+    },
   ]
 });
 

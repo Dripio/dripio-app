@@ -8,6 +8,7 @@ import 'firebase/auth'
 import 'firebase/database'
 import VueFire from 'vuefire'
 import VueOnsen from 'vue-onsenui'  // This imports 'onsenui', so no need to import it separately
+// /simport WifiWizard2 from 'plugins/wifiwizard2'
 
 import App from './App.vue'
 import router from './router'

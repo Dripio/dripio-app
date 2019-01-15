@@ -60,8 +60,9 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <icon platform="ios" src="res/icon/ios/icon.png" />
-    <engine name="ios" spec="^4.5.5" />
-    <engine name="android" spec="~7.1.4" />
-    <plugin name="wifiwizard2" spec="https://github.com/tripflex/wifiwizard2" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-battery-status" spec="^2.0.2" />
+    <plugin name="wifiwizard2" spec="^3.1.0" />
+    <engine name="ios" spec="^4.5.5" />
+    <engine name="browser" spec="^5.0.4" />
 </widget>

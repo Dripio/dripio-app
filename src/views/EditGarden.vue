@@ -16,10 +16,12 @@
     <div>
       <v-ons-button @click="updateName">Update Garden Name</v-ons-button>
     </div>
-
+    <div>
+      List of existing controllers, if any, goes here.
+    </div>
     <div class="margin-top">
-      <p>Connect to Dripio Controller</p>
-      <v-ons-fab ripple @click="importedFunctionWrapper">
+      <p>Add a Dripio Controller</p>
+      <v-ons-fab ripple @click="connect">
         <ons-icon
           icon="fa-wifi">
         </ons-icon>
@@ -32,7 +34,6 @@
 <script>
 import { db } from '../main'
 import { auth } from '../main'
-import { checkConnection } from '../main'
 
 export default {
   name: 'EditGarden',
@@ -41,20 +42,40 @@ export default {
       let gardenRef = db.collection('users')
         .doc( auth.currentUser.email )
         .collection('gardens')
-        .doc ( this.docname )
+        .doc ( this.docname );
+
+      this.garden = gardenRef;
+
+      gardenRef
         .set(
           { name: this.gardenname },
-          { merge: true }
+          { merge: true } // probably can be removed
         );
     },
-    importedFunctionWrapper () {
-      checkConnection()
+    connect () {
+      // this.garden
+      //   .collection('valves')
+      //   .doc ( 'valve')
+      //   .set( {
+      //     name: 'Valve 1'
+      //   });
+      this.$router.push({
+
+        name: 'Connect',
+        params: {
+          name: this.gardenname
+        },
+        query: {
+          garden: this.garden
+        }
+      })
     }
   },
   data() {
     return {
       gardenname: 'Garden 1', //default name
       docname: 'garden_01', //default docname,
+      garden: {}
     }
   },
   created () {

@@ -10,10 +10,13 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.dripio.www"
     },
-    "wifiwizard2": {
+    "cordova-plugin-network-information": {
       "PACKAGE_NAME": "com.dripio.www"
     },
-    "cordova-plugin-network-information": {
+    "cordova-plugin-battery-status": {
+      "PACKAGE_NAME": "com.dripio.www"
+    },
+    "wifiwizard2": {
       "PACKAGE_NAME": "com.dripio.www"
     }
   },

@@ -42,7 +42,7 @@
       editGarden: function(gardenButton) {
         this.$router.push({
           name: 'EditGarden',
-          params: { id: gardenButton.slug },
+          params: { id: gardenButton.slug },//slug and this params can maybe be removed everywhere
           query: {
             docname: gardenButton.id,
             name: gardenButton.name} })
