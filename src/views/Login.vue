@@ -5,12 +5,14 @@
     <v-ons-input type="email" v-model="email" placeholder="Email"></v-ons-input></br>
     <v-ons-input type="password" v-model="password" placeholder="Password"></v-ons-input><br>
     <v-ons-button class="button-margin" @click="login">Connection</v-ons-button>
+    <v-ons-button @click="testAxios"></v-ons-button>
     <p>You don't have an account? You can <router-link to="/signup">create one</router-link>.</p>
   </div>
 </template>
 
 <script>
   import firebase from 'firebase';
+  import axios from 'axios';
 
   export default {
     name: 'login',
@@ -30,6 +32,47 @@
             alert('Oops. ' + err.message)
           }
         );
+      },
+      testAxios: function() {
+        var token = ""
+        axios.post('https://dripio.com/api/sessions', {
+          email: "this.email",
+          password: "this.password",
+          headers: {
+            "Referer": ''
+          }
+        })
+        .then(function (response) {
+          console.log("login success");
+          console.log(response.data.data.token);
+          token = response.data.data.token
+
+          cb()
+        })
+        .catch(function (error) {
+          console.log("login error");
+          console.log(error.data);
+
+          cb()
+        });
+
+        axios.get('https://dripio.com/api/controllers', {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        .then(function (response) {
+          console.log("get_controllers_data success");
+          console.log(response.data);
+
+          cb()
+        })
+        .catch(function (error) {
+          console.log("get_controllers_data error");
+          console.log(error.data);
+
+          cb()
+        });
       }
     },
   }

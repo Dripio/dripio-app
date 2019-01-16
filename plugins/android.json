@@ -1,0 +1,28 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-battery-status": {
+      "PACKAGE_NAME": "com.dripio.www"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.dripio.www"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.dripio.www"
+    },
+    "wifiwizard2": {
+      "PACKAGE_NAME": "com.dripio.www"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.dripio.www"
+    }
+  }
+}
