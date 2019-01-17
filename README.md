@@ -8,7 +8,8 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:5000
+# only 5000 is permitted by dripio's server config
 npm run dev
 
 # build for production with minification
