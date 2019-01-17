@@ -4,8 +4,7 @@
     <h3>Sign In</h3>
     <v-ons-input type="email" v-model="email" placeholder="Email"></v-ons-input></br>
     <v-ons-input type="password" v-model="password" placeholder="Password"></v-ons-input><br>
-    <v-ons-button class="button-margin" @click="loginX">Connection</v-ons-button>
-    <v-ons-button @click="callAxios">Test button</v-ons-button>
+    <v-ons-button class="button-margin" @click="callAxios">Connection</v-ons-button>
     <p>You don't have an account? You can <router-link to="/signup">create one</router-link>.</p>
   </div>
 </template>
@@ -24,27 +23,17 @@
       }
     },
     methods: {
-      loginX: function() {
-        firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-          (user) => {
-            this.$router.replace('Home')
-          },
-          (err) => {
-            alert('Oops. ' + err.message)
-          }
-        );
-      },
       login: function (cb) {
         console.log('step 2');
+        let that = this;
         axios.post('https://dripio.com/api/sessions', {
-            email: "this.email",
-            password: "this.password"
+            email: this.email,
+            password: this.password
           })
           .then(function (response) {
-            console.log('step 3');
             console.log("login success");
             console.log(response.data.data.token);
-            token = response.data.data.token
+            that.token = response.data.data.token
 
             cb()
           })
@@ -56,17 +45,16 @@
           });
         },
       get_controllers_data: function (cb) {
-        console.log('step 4');
+        let that = this;
         axios.get('https://dripio.com/api/controllers', {
             headers: {
               "Authorization": `Bearer ${this.token}`
             }
           })
           .then(function (response) {
-            console.log('step 5');
             console.log("get_controllers_data success");
             console.log(response.data);
-
+            that.$router.replace('Home')
             cb()
           })
           .catch(function (error) {
@@ -79,8 +67,8 @@
       callAxios: function () {
         const get_data = this.get_controllers_data;
         console.log('step 1');
-        this.login(function(){
-          get_data(function(){
+        this.login(() => {
+          get_data( () => {
             console.log('step 6');
           })
         })
