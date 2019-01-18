@@ -5,6 +5,10 @@
 </template>
 
 <style>
+  body {
+    background: linear-gradient(rgb(28, 18, 78), rgb(41, 24, 125));
+    font-family: Helvetica sans-serif;
+  }
 
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;

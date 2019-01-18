@@ -1,11 +1,11 @@
 <template>
   <div class="login">
     <img alt="Vue logo" src="../assets/logo.svg">
-    <h3>Sign In</h3>
-    <v-ons-input type="email" v-model="email" placeholder="Email"></v-ons-input></br>
-    <v-ons-input type="password" v-model="password" placeholder="Password"></v-ons-input><br>
-    <v-ons-button class="button-margin" @click="login">Connection</v-ons-button>
-    <p>You don't have an account? You can <router-link to="/signup">create one</router-link>.</p>
+    <h3>WELCOME</h3>
+    <v-ons-input type="email" v-model="email" placeholder="email"></v-ons-input></br>
+    <v-ons-input type="password" v-model="password" placeholder="password"></v-ons-input><br>
+    <v-ons-button class="button-margin" @click="login">LOGIN</v-ons-button>
+    <p><router-link to="/signup">New Member</router-link></p>
   </div>
 </template>
 
@@ -38,6 +38,13 @@
 <style scoped>
   img {
     margin-top: 40px;
+    height: 90px;
+  }
+  h3 {
+    font-weight: 200;
+    font-size: 2em;
+    text-transform: uppercase;
+    color: white;
   }
   .login {
     margin-top: 40px;
@@ -50,7 +57,8 @@
     font-size: 13px;
   }
   p a {
-    text-decoration: underline;
+    text-decoration: none;
+    color: white;
     cursor: pointer;
   }
 
