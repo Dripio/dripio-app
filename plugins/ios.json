@@ -18,6 +18,9 @@
     },
     "wifiwizard2": {
       "PACKAGE_NAME": "com.dripio.www"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.dripio.www"
     }
   },
   "dependent_plugins": {

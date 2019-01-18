@@ -13,13 +13,13 @@
     "cordova-plugin-network-information": {
       "PACKAGE_NAME": "com.dripio.www"
     },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.dripio.www"
+    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.dripio.www"
     },
     "wifiwizard2": {
-      "PACKAGE_NAME": "com.dripio.www"
-    },
-    "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.dripio.www"
     }
   },
