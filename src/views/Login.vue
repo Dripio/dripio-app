@@ -5,18 +5,22 @@
     <v-ons-list id="login-form">
       <v-ons-list-item modifier="nodivider">
         <div class="left">
-          <v-ons-icon icon="ion-email, material:md-email" style="color: white"></v-ons-icon>
+          <!-- make icon be white again, once input can be white:  style="color: white" -->
+          <v-ons-icon icon="ion-email, material:md-email" size="28px, material:20px"></v-ons-icon>
         </div>
         <div class="center">
-          <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email" style="color: white"></v-ons-input>
+          <!-- add back style="color: white" to this input once you can get that to work -->
+          <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email" ></v-ons-input>
         </div>
       </v-ons-list-item>
       <v-ons-list-item modifier="nodivider">
         <div class="left">
-          <v-ons-icon icon="md-lock" style="color: white"></v-ons-icon>
+          <!-- make icon be white again, once input can be white:  style="color: white" -->
+          <v-ons-icon icon="md-lock" size="28px, material:20px"></v-ons-icon>
         </div>
         <div class="center">
-          <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password" style="color: white"></v-ons-input>
+          <!-- add back style="color: white" to this input once you can get that to work -->
+          <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password"></v-ons-input>
         </div>
       </v-ons-list-item>
     </v-ons-list>
@@ -88,8 +92,9 @@
     border-radius: 8px;
   }
   #login-form {
-    background: transparent;
+    /* background: transparent; */
     width: 275px;
+    border-radius: 8px;
   }
   v-ons-input {
     color: white;
