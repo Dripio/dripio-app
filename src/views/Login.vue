@@ -27,7 +27,31 @@
 
     <v-ons-button id="login-btn" class="button-margin" @click="login">LOGIN</v-ons-button>
 
-    <p><router-link to="/signup">New Member</router-link></p>
+    <div class="redirect-btns">
+      <p><router-link to="/signup">New Member</router-link></p>
+      <p @click="resetPassword" tappable>Forgot Password?</p>
+    </div>
+
+    <v-ons-alert-dialog modifier="rowfooter"
+      :title="Sent"
+      :footer="{
+        Ok: () => emailSentDialogIsVisible = false
+      }"
+      :visible.sync="emailSentDialogIsVisible"
+    >
+      Please check your email to reset your password.
+    </v-ons-alert-dialog>
+
+    <v-ons-alert-dialog modifier="rowfooter"
+      :title="Oops"
+      :footer="{
+        Ok: () => checkEmailDialogIsVisible = false
+      }"
+      :visible.sync="checkEmailDialogIsVisible"
+    >
+      Please make sure your email address is entered correctly or sign up as a new member.
+    </v-ons-alert-dialog>
+
   </div>
 </template>
 
@@ -39,7 +63,9 @@
     data() {
       return {
         email: '',
-        password: ''
+        password: '',
+        emailSentDialogIsVisible: false,
+        checkEmailDialogIsVisible: false
       }
     },
     methods: {
@@ -52,9 +78,21 @@
             alert('Oops. ' + err.message)
           }
         );
-      }
-    },
+      },
+
+    resetPassword: function() {
+      let that = this;
+
+      firebase.auth().sendPasswordResetEmail(this.email).then(function() {
+        that.emailSentDialogIsVisible = true;
+        // $ons.notification.alert("Email sent")
+      }).catch(function(error) {
+        that.checkEmailDialogIsVisible = true;
+        // $ons.notification.alert('Oops! Please check your email and try again or sign up as a new member.');
+      });
+    }
   }
+}
 </script>
 
 <style scoped>
@@ -79,7 +117,8 @@
   }
   p {
     margin-top: 40px;
-    font-size: 13px;
+    font-size: 1.2em;
+    color: white;
   }
   p a {
     text-decoration: none;
@@ -98,6 +137,11 @@
   }
   v-ons-input {
     color: white;
+  }
+  .redirect-btns {
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
   }
 
 </style>
