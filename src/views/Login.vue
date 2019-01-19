@@ -2,9 +2,20 @@
   <div class="login">
     <img alt="Vue logo" src="../assets/logo.svg">
     <h3>WELCOME</h3>
-    <v-ons-input type="email" v-model="email" placeholder="email"></v-ons-input></br>
-    <v-ons-input type="password" v-model="password" placeholder="password"></v-ons-input><br>
-    <v-ons-button class="button-margin" @click="login">LOGIN</v-ons-button>
+    <v-ons-list id="login-form">
+      <v-ons-list-item modifier="nodivider">
+        <v-ons-icon icon="ion-email, material:md-email" style="color: white"></v-ons-icon>
+        <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email" style="color: white">
+        </v-ons-input></br>
+      </v-ons-list-item>
+      <v-ons-list-item modifier="nodivider">
+        <v-ons-icon icon="ion-lock, md-lock" style="color: white"></v-ons-icon>
+        <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password" style="color: white"></v-ons-input><br>
+      </v-ons-list-item>
+    </v-ons-list>
+
+    <v-ons-button id="login-btn" class="button-margin" @click="login">LOGIN</v-ons-button>
+
     <p><router-link to="/signup">New Member</router-link></p>
   </div>
 </template>
@@ -48,6 +59,9 @@
   }
   .login {
     margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .button-margin {
     margin-top: 40px;
@@ -60,6 +74,18 @@
     text-decoration: none;
     color: white;
     cursor: pointer;
+  }
+  #login-btn {
+    background: linear-gradient(to right, rgb(113, 40, 244), rgb(127, 61, 249), rgb(144, 86, 255), rgb(127, 61, 249), rgb(113, 40, 244));
+    width: 200px;
+    border-radius: 8px;
+  }
+  #login-form {
+    background: transparent;
+    width: 275px;
+  }
+  v-ons-input {
+    color: white;
   }
 
 </style>
