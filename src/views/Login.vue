@@ -4,13 +4,20 @@
     <h3>WELCOME</h3>
     <v-ons-list id="login-form">
       <v-ons-list-item modifier="nodivider">
-        <v-ons-icon icon="ion-email, material:md-email" style="color: white"></v-ons-icon>
-        <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email" style="color: white">
-        </v-ons-input></br>
+        <div class="left">
+          <v-ons-icon icon="ion-email, material:md-email" style="color: white"></v-ons-icon>
+        </div>
+        <div class="center">
+          <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email" style="color: white"></v-ons-input>
+        </div>
       </v-ons-list-item>
       <v-ons-list-item modifier="nodivider">
-        <v-ons-icon icon="ion-lock, md-lock" style="color: white"></v-ons-icon>
-        <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password" style="color: white"></v-ons-input><br>
+        <div class="left">
+          <v-ons-icon icon="md-lock" style="color: white"></v-ons-icon>
+        </div>
+        <div class="center">
+          <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password" style="color: white"></v-ons-input>
+        </div>
       </v-ons-list-item>
     </v-ons-list>
 
