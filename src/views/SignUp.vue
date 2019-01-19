@@ -1,16 +1,44 @@
 <template>
-  <div class="sign-up">
+  <div class="preAuth">
     <img alt="Vue logo" src="../assets/logo.svg">
-    <p>Let's create a new account!</p>
-    <v-ons-input type="email" v-model="email" placeholder="Email"></v-ons-input><br>
-    <v-ons-input type="password" v-model="password" placeholder="Password"></v-ons-input><br>
-    <v-ons-button class="button-margin" @click="signUp">Sign Up</v-ons-button>
-    <span>or go back to <router-link to="/login">login</router-link>.</span>
+    <h3>Sign up</h3>
+
+    <v-ons-list class="email-form">
+      <v-ons-list-item modifier="nodivider">
+        <div class="left">
+          <!-- make icon be white again, once input can be white:  style="color: white" -->
+          <v-ons-icon icon="ion-email, material:md-email" size="28px, material:20px"></v-ons-icon>
+        </div>
+        <div class="center">
+          <!-- add back style="color: white" to this input once you can get that to work -->
+          <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email" ></v-ons-input>
+        </div>
+      </v-ons-list-item>
+
+      <v-ons-list-item modifier="nodivider">
+        <div class="left">
+          <!-- make icon be white again, once input can be white:  style="color: white" -->
+          <v-ons-icon icon="md-lock" size="28px, material:20px"></v-ons-icon>
+        </div>
+        <div class="center">
+          <!-- add back style="color: white" to this input once you can get that to work -->
+          <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password"></v-ons-input>
+        </div>
+      </v-ons-list-item>
+    </v-ons-list>
+
+    <v-ons-button class="button-margin submit-btn" @click="signUp">SIGNUP</v-ons-button>
+
+    <div class="redirect-btns">
+      <p>or go back to <router-link to="/login">login</router-link>.</p>
+    </div>
+
   </div>
 </template>
 
 <script>
   import firebase from 'firebase';
+  import '../style/login.css'
 
   export default {
     name: 'signUp',
@@ -34,23 +62,3 @@
     }
   }
 </script>
-
-<style scoped>
-  img {
-    margin-top: 40px;
-  }
-
-  .button-margin {
-    margin-top: 40px;
-  }
-  button {
-    margin-top: 10px;
-    width: 10%;
-    cursor: pointer;
-  }
-  span {
-    display: block;
-    margin-top: 20px;
-    font-size: 11px;
-  }
-</style>

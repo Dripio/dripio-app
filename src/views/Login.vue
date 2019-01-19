@@ -1,8 +1,8 @@
 <template>
-  <div class="login">
+  <div class="preAuth">
     <img alt="Vue logo" src="../assets/logo.svg">
     <h3>WELCOME</h3>
-    <v-ons-list id="login-form">
+    <v-ons-list class="email-form">
       <v-ons-list-item modifier="nodivider">
         <div class="left">
           <!-- make icon be white again, once input can be white:  style="color: white" -->
@@ -25,7 +25,7 @@
       </v-ons-list-item>
     </v-ons-list>
 
-    <v-ons-button id="login-btn" class="button-margin" @click="login">LOGIN</v-ons-button>
+    <v-ons-button class="button-margin submit-btn" @click="login">LOGIN</v-ons-button>
 
     <div class="redirect-btns">
       <p><router-link to="/signup">New Member</router-link></p>
@@ -39,7 +39,7 @@
       }"
       :visible.sync="emailSentDialogIsVisible"
     >
-      Please check your email to reset your password.
+      Email sent. Please check your email to reset your password.
     </v-ons-alert-dialog>
 
     <v-ons-alert-dialog modifier="rowfooter"
@@ -57,6 +57,7 @@
 
 <script>
   import firebase from 'firebase';
+  import '../style/login.css'
 
   export default {
     name: 'login',
@@ -94,54 +95,3 @@
   }
 }
 </script>
-
-<style scoped>
-  img {
-    margin-top: 40px;
-    height: 90px;
-  }
-  h3 {
-    font-weight: 200;
-    font-size: 2em;
-    text-transform: uppercase;
-    color: white;
-  }
-  .login {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .button-margin {
-    margin-top: 40px;
-  }
-  p {
-    margin-top: 40px;
-    font-size: 1.2em;
-    color: white;
-  }
-  p a {
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-  }
-  #login-btn {
-    background: linear-gradient(to right, rgb(113, 40, 244), rgb(127, 61, 249), rgb(144, 86, 255), rgb(127, 61, 249), rgb(113, 40, 244));
-    width: 200px;
-    border-radius: 8px;
-  }
-  #login-form {
-    /* background: transparent; */
-    width: 275px;
-    border-radius: 8px;
-  }
-  v-ons-input {
-    color: white;
-  }
-  .redirect-btns {
-    display: flex;
-    width: 90%;
-    justify-content: space-around;
-  }
-
-</style>
