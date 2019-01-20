@@ -1,6 +1,7 @@
-// Webpack CSS import
+// Onsen UI Styling and Icons
 import 'onsenui/css/onsenui.css';
 import 'onsenui/css/onsen-css-components.css';
+// import './style/onsen-css-theme/onsen-css-components.css'
 
 import Vue from 'vue'
 import firebase from 'firebase/app'

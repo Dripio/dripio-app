@@ -49,7 +49,7 @@
               })"
               >
               <ons-icon @click="updateName"
-                icon="ion-add, material:plus">
+                icon="ion-ios-plus, material:md-plus" size="24px, material:16px">
               </ons-icon>
             </v-ons-button>
 

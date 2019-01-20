@@ -6,7 +6,7 @@
       <v-ons-list-item modifier="nodivider">
         <div class="left">
           <!-- make icon be white again, once input can be white:  style="color: white" -->
-          <v-ons-icon icon="ion-email, material:md-email" size="28px, material:20px"></v-ons-icon>
+          <v-ons-icon icon="ion-ios-email, material:md-email" size="24px, material:16px"></v-ons-icon>
         </div>
         <div class="center">
           <!-- add back style="color: white" to this input once you can get that to work -->
@@ -16,7 +16,7 @@
       <v-ons-list-item modifier="nodivider">
         <div class="left">
           <!-- make icon be white again, once input can be white:  style="color: white" -->
-          <v-ons-icon icon="md-lock" size="28px, material:20px"></v-ons-icon>
+          <v-ons-icon icon="ion-ios-locked, material:md-lock" size="24px, material:16px"></v-ons-icon>
         </div>
         <div class="center">
           <!-- add back style="color: white" to this input once you can get that to work -->
@@ -33,7 +33,6 @@
     </div>
 
     <v-ons-alert-dialog modifier="rowfooter"
-      :title="Sent"
       :footer="{
         Ok: () => emailSentDialogIsVisible = false
       }"
@@ -43,7 +42,6 @@
     </v-ons-alert-dialog>
 
     <v-ons-alert-dialog modifier="rowfooter"
-      :title="Oops"
       :footer="{
         Ok: () => checkEmailDialogIsVisible = false
       }"
