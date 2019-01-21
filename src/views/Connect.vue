@@ -4,9 +4,9 @@
     <template v-else>
         <v-ons-page>
 
-          <v-ons-toolbar>
-            <div class="center">Controller Settings</div>
-            <div class="left">
+          <v-ons-toolbar style="background: #29187D; height: 100px;">
+            <div class="center light-violet" style="height: 100px; display: flex; align-items: center"><div>Controller Settings</div></div>
+            <div class="left" style="height: 100px;">
               <v-ons-back-button @click="$router.push({name: 'Home'})">Home</v-ons-back-button>
             </div>
 
@@ -102,5 +102,8 @@ export default {
   }
   .lg-margin-top {
     margin: 30px 0px 10px;
+  }
+  #md-back-button-icon{
+    fill: #E8DEFF;
   }
 </style>
