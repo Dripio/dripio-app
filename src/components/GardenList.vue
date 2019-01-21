@@ -1,28 +1,61 @@
-<template>
-  <ons-page>
-    <v-ons-toolbar style="background: #29187D; height: 100px;">
-      <div class="left">
-      </div>
-      <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center">
-        <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg">
-      </div>
-    </v-ons-toolbar>
-    <!-- put the logout button in the side menu -->
+<template id="main">
+  <v-ons-splitter>
 
-    <ons-scroller style="width: 100%;">
-      <div style="padding-top: 50px">
-        <v-ons-button @click="addGarden" >Add Garden</v-ons-button>
-      </div>
-      <v-ons-list-header class="lg-margin-top">Gardens</v-ons-list-header>
-      <v-ons-list>
-        <v-ons-list-item v-for="garden in gardens" @click="editGarden(garden)">
-            <!-- id: garden.slug -->
-            <div class="center">{{ garden.name }} </div>
-        </v-ons-list-item>
-      </v-ons-list>
-    </ons-scroller>
-    <v-ons-button @click="logout">Logout</v-ons-button>
-  </ons-page>
+    <v-ons-splitter-side
+      swipeable width="150px" collapse="" side="left"
+      :open.sync="openSide">
+      <v-ons-page>
+        <v-ons-list>
+          <v-ons-list-item @click="addGarden" class="button white-text">Add Garden</v-ons-list-item>
+          <v-ons-list-item v-for="garden in gardens.slice().reverse()"
+            tappable modifier="chevron"
+            @click="editGarden(garden); openSide = false"
+          >
+            <div class="center">{{ garden.name }}</div>
+          </v-ons-list-item>
+          <v-ons-list-item tappable @click="logout" class="button white-text">Logout</v-ons-list-item>
+        </v-ons-list>
+      </v-ons-page>
+    </v-ons-splitter-side>
+
+    <v-ons-splitter-content>
+      <template id="editGarden">
+        <v-ons-page>
+          <v-ons-toolbar style="background: #29187D; height: 100px;">
+          <div class="left">
+            <v-ons-back-button @click="openSide = true"></v-ons-back-button>
+          </div>
+          <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center">
+            <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg">
+          </div>
+        </v-ons-toolbar>
+          <div class="margin-top" style="padding-top: 70px">
+            <label for="gardenNaming">Garden Name: </label>
+          </div>
+          <v-ons-input v-model="gardenname"></v-ons-input>
+
+          <!-- Later: use a v-if to make this conditionally display, only if user makes any changes -->
+          <div class="margin-top">Your garden will be updated to {{ gardenname }} when you click the button.</div>
+          <div>
+            <v-ons-button @click="updateName">Update Garden Name</v-ons-button>
+          </div>
+          <div>
+            List of existing controllers, if any, goes here.
+          </div>
+          <div class="margin-top">
+            <p>Add a Dripio Controller</p>
+            <v-ons-fab ripple @click="connect">
+              <ons-icon
+                icon="ion-wifi, material:wifi">
+              </ons-icon>
+            </v-ons-fab>
+          </div>
+
+        </v-ons-page>
+      </template>
+    </v-ons-splitter-content>
+
+  </v-ons-splitter>
 </template>
 
 <script>
@@ -31,9 +64,13 @@
   import { db } from '../main'
   import { auth } from '../main'
   import firebase from 'firebase'
+  // import EditGarden from './EditGarden.vue'
 
   export default {
     name: 'GardenList',
+    // components: {
+    //   EditGarden
+    // },
     props: {
       // gardens: Array
     },
@@ -58,12 +95,14 @@
           });
       },
       editGarden: function(gardenButton) {
-        this.$router.push({
-          name: 'EditGarden',
-          params: { id: gardenButton.slug },//slug and this params can maybe be removed everywhere
-          query: {
-            docname: gardenButton.id,
-            name: gardenButton.name} })
+        // this.$router.push({
+        //   name: 'EditGarden',
+        //   params: { id: gardenButton.slug },//slug and this params can maybe be removed everywhere
+        //   query: {
+        //     docname: gardenButton.id,
+        //     name: gardenButton.name} })
+        this.docname = gardenButton.id;
+        this.gardenname = gardenButton.name;
       },
       generateUUID () {
         let d = new Date().getTime()
@@ -78,13 +117,48 @@
         firebase.auth().signOut().then(() => {
           this.$router.replace('login')
         })
+      },
+      updateName () {
+        let gardenRef = db.collection('users')
+          .doc( auth.currentUser.email )
+          .collection('gardens')
+          .doc ( this.docname );
+
+        this.garden = gardenRef;
+
+        gardenRef
+          .set(
+            { name: this.gardenname },
+            { merge: true } // probably can be removed
+          );
+      },
+      connect () {
+        this.$router.push({
+
+          name: 'Connect',
+          params: {
+            name: this.gardenname
+          },
+          query: {
+            garden: this.garden
+          }
+        })
       }
     },
     data () {
       return {
-        gardens: []
+        gardens: [],
+        openSide: true,
+        // currentGarden: 'EditGarden',
+        gardenname: 'Garden 1', //default name
+        docname: 'garden_01', //default docname,
+        garden: {}
       }
     },
+    // created () {
+      // this.gardenname = this.$route.query.name; how did it input the query.name?
+      // this.docname = this.$route.query.docname;
+    // },
     firestore () {
       return {
         gardens: db.collection('users')
@@ -101,8 +175,11 @@
   .button {
     margin: 10px 0;
   }
-  .page__background {
-    /* background-color: #29187D; */
+  .text-input {
+    text-align: center;
+  }
+  .margin-top {
+    margin: 50px 0px 10px;
   }
 
   /* make sure this page is scrollable, in case the user adds lots of gardens */

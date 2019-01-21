@@ -5,7 +5,6 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
-import EditGarden from './views/EditGarden.vue'
 import Connect from './views/Connect.vue'
 
 Vue.use(Router)
@@ -40,14 +39,6 @@ const router = new Router({
       path: '/signup',
       name: 'SignUp',
       component: SignUp
-    },
-    {
-      path: '/garden/:id',
-      name: 'EditGarden',
-      component: EditGarden,
-      meta: {
-        requiresAuth: true
-      }
     },
     {
       path: '/connect/:name',

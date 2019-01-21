@@ -7,7 +7,7 @@
           <v-ons-toolbar>
             <div class="center">Controller Settings</div>
             <div class="left">
-              <v-ons-back-button @click="$router.go(-2)">Home</v-ons-back-button>
+              <v-ons-back-button @click="$router.push({name: 'Home'})">Home</v-ons-back-button>
             </div>
 
           </v-ons-toolbar>

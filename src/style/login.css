@@ -52,3 +52,9 @@ v-ons-input {
   width: 90%;
   justify-content: space-around;
 }
+.page__background {
+  background-color: #E8DEFF;
+}
+.button {
+  background-color: #29187D;
+}
