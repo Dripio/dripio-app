@@ -33,18 +33,18 @@
           </div>
         </v-ons-toolbar>
           <div class="margin-top" style="padding-top: 70px">
-            <label for="gardenNaming">Garden Name: </label>
+            <v-ons-input class="gardenTitle" v-model="gardenname" @change="updateName"></v-ons-input>
           </div>
-          <v-ons-input v-model="gardenname"></v-ons-input>
+
 
           <!-- Later: use a v-if to make this conditionally display, only if user makes any changes -->
-          <div class="margin-top">Your garden will be updated to {{ gardenname }} when you click the button.</div>
+          <!-- <div class="margin-top">Your garden will be updated to {{ gardenname }} when you click the button.</div>
           <div>
             <v-ons-button @click="updateName">Update Garden Name</v-ons-button>
-          </div>
-          <div>
+          </div> -->
+          <!-- <div>
             List of existing controllers, if any, goes here.
-          </div>
+          </div> -->
           <div class="margin-top">
             <p>Add a Dripio Controller</p>
             <v-ons-fab ripple @click="connect" style="background: #29187D">
@@ -188,6 +188,10 @@
   }
   #md-back-button-icon{
     fill: #E8DEFF;
+  }
+  .gardenTitle .text-input{
+    font-size: 30px;
+    height: 40px;
   }
 
   /* make sure this page is scrollable, in case the user adds lots of gardens */
