@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <GardenList />
-    <v-ons-button @click="logout">Logout</v-ons-button>
   </div>
 </template>
 
@@ -13,17 +12,6 @@ export default {
   name: 'home',
   components: {
     GardenList
-  },
-  methods: {
-    logout: function() {
-      firebase.auth().signOut().then(() => {
-        this.$router.replace('login')
-      })
-    }
   }
 }
 </script>
-
-<style>
-
-</style>

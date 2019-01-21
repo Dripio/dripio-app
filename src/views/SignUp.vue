@@ -1,6 +1,6 @@
 <template>
   <div class="preAuth">
-    <img alt="Vue logo" src="../assets/logo.svg">
+    <img alt="Vue logo" class="login-logo login-logo-small" src="../assets/logo.svg">
     <h3>Sign up</h3>
 
     <v-ons-list class="email-form">

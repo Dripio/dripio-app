@@ -1,6 +1,11 @@
-img {
+.login-logo {
   margin-top: 40px;
+}
+.login-logo-small {
   height: 90px;
+}
+.login-logo-x-small {
+  height: 70px;
 }
 h3 {
   font-weight: 200;
@@ -20,6 +25,8 @@ h3 {
 p {
   margin-top: 40px;
   font-size: 1.2em;
+}
+.white-text {
   color: white;
 }
 p a {

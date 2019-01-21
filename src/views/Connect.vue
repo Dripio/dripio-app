@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 v-if="hideSettings">{{status}}</h1>
+    <h1 v-if="hideSettings" class="white-text">{{status}}</h1>
     <template v-else>
         <v-ons-page>
 
@@ -94,13 +94,13 @@ export default {
 }
 </script>
 <style>
-.text-input {
-  text-align: center;
-}
-.sm-margin-top {
-  margin: 10px 0px 10px;
-}
-.lg-margin-top {
-  margin: 30px 0px 10px;
-}
+  .text-input {
+    text-align: center;
+  }
+  .sm-margin-top {
+    margin: 10px 0px 10px;
+  }
+  .lg-margin-top {
+    margin: 30px 0px 10px;
+  }
 </style>

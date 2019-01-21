@@ -1,6 +1,6 @@
 <template>
   <div class="preAuth">
-    <img alt="Vue logo" src="../assets/logo.svg">
+    <img class="login-logo login-logo-small" alt="Vue logo" src="../assets/logo.svg">
     <h3>WELCOME</h3>
     <v-ons-list class="email-form">
       <v-ons-list-item modifier="nodivider">
@@ -10,17 +10,17 @@
         </div>
         <div class="center">
           <!-- add back style="color: white" to this input once you can get that to work -->
-          <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email" ></v-ons-input>
+          <v-ons-input modifier="underbar" type="email" v-model="email" placeholder="email"></v-ons-input>
         </div>
       </v-ons-list-item>
       <v-ons-list-item modifier="nodivider">
         <div class="left">
           <!-- make icon be white again, once input can be white:  style="color: white" -->
-          <v-ons-icon icon="ion-ios-locked, material:md-lock" size="24px, material:16px"></v-ons-icon>
+          <v-ons-icon icon="ion-ios-locked, material:md-lock" class="text-input--material" size="24px, material:16px"></v-ons-icon>
         </div>
         <div class="center">
           <!-- add back style="color: white" to this input once you can get that to work -->
-          <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password"></v-ons-input>
+          <v-ons-input modifier="underbar" type="password" v-model="password" placeholder="password" float></v-ons-input>
         </div>
       </v-ons-list-item>
     </v-ons-list>
@@ -29,7 +29,7 @@
 
     <div class="redirect-btns">
       <p><router-link to="/signup">New Member</router-link></p>
-      <p @click="resetPassword" tappable>Forgot Password?</p>
+      <p @click="resetPassword" tappable class="white-text">Forgot Password?</p>
     </div>
 
     <v-ons-alert-dialog modifier="rowfooter"
