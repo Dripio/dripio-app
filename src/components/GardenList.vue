@@ -6,7 +6,7 @@
       :open.sync="openSide">
       <v-ons-page>
         <v-ons-list>
-          <v-ons-list-item @click="addGarden" class="white-text">Add Garden</v-ons-list-item>
+          <v-ons-list-item @click="addGarden" class="button white-text">Add Garden</v-ons-list-item>
           <v-ons-list-item v-for="garden in gardens.slice().reverse()"
             tappable modifier="chevron"
             @click="editGarden(garden); openSide = false"
