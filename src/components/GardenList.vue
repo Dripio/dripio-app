@@ -6,7 +6,7 @@
       :open.sync="openSide">
       <v-ons-page>
         <v-ons-list>
-          <v-ons-list-item @click="addGarden" class="button white-text">Add Garden</v-ons-list-item>
+          <v-ons-list-item @click="addGarden" class="white-text">Add Garden</v-ons-list-item>
           <v-ons-list-item v-for="garden in gardens.slice().reverse()"
             tappable modifier="chevron"
             @click="editGarden(garden); openSide = false"
@@ -23,10 +23,13 @@
         <v-ons-page>
           <v-ons-toolbar style="background: #29187D; height: 100px;">
           <div class="left">
-            <v-ons-back-button @click="openSide = true"></v-ons-back-button>
+            <v-ons-back-button @click="openSide = true" style="height: 100px;" class="button white-text"></v-ons-back-button>
           </div>
           <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center">
             <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg">
+          </div>
+          <div class="right">
+            <div style="width: 16px;"></div>
           </div>
         </v-ons-toolbar>
           <div class="margin-top" style="padding-top: 70px">
@@ -44,9 +47,9 @@
           </div>
           <div class="margin-top">
             <p>Add a Dripio Controller</p>
-            <v-ons-fab ripple @click="connect">
+            <v-ons-fab ripple @click="connect" style="background: #29187D">
               <ons-icon
-                icon="ion-wifi, material:wifi">
+                icon="ion-wifi, material:wifi" class="white-text">
               </ons-icon>
             </v-ons-fab>
           </div>
@@ -93,6 +96,8 @@
             name: defaultNameOfGarden,
             slug: this.generateUUID()
           });
+          this.gardenname = defaultNameOfGarden;
+          this.openSide = false;
       },
       editGarden: function(gardenButton) {
         // this.$router.push({
@@ -148,7 +153,7 @@
     data () {
       return {
         gardens: [],
-        openSide: true,
+        openSide: false,
         // currentGarden: 'EditGarden',
         gardenname: 'Garden 1', //default name
         docname: 'garden_01', //default docname,
@@ -172,14 +177,17 @@
 </script>
 
 <style>
-  .button {
+  /* .button {
     margin: 10px 0;
-  }
+  } */
   .text-input {
     text-align: center;
   }
   .margin-top {
     margin: 50px 0px 10px;
+  }
+  #md-back-button-icon{
+    fill: #E8DEFF;
   }
 
   /* make sure this page is scrollable, in case the user adds lots of gardens */
