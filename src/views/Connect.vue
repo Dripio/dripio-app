@@ -19,14 +19,7 @@
           <div class="lg-margin-top">
             <label for="controllername">Controller Name</label>
           </div>
-          <v-ons-input v-model="controllername" input-id="controllername"></v-ons-input>
-          <v-ons-button>
-            <ons-icon @click="updateName"
-              icon="ion-checkmark, material:check">
-            </ons-icon>
-          </v-ons-button>
-
-
+          <v-ons-input v-model="controllername" class="gardenTitle" input-id="controllername" @change="updateName"></v-ons-input>
 
           <v-ons-list-header class="lg-margin-top" style="display: flex; justify-content: space-between; align-items: center">
             <span>Valves</span>

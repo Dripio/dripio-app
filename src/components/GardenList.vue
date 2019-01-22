@@ -45,6 +45,12 @@
           <!-- <div>
             List of existing controllers, if any, goes here.
           </div> -->
+          <v-ons-list-item v-for="controller in controllers"
+            tappable
+
+          >
+            <div class="center">{{ controller }}</div>
+          </v-ons-list-item>
           <div class="margin-top">
             <p>Add a Dripio Controller</p>
             <v-ons-fab ripple @click="connect" style="background: #29187D">
@@ -71,12 +77,6 @@
 
   export default {
     name: 'GardenList',
-    // components: {
-    //   EditGarden
-    // },
-    props: {
-      // gardens: Array
-    },
     methods: {
       // perhaps consolidate main.js to use this addGarden function in the initial garden creation.
       addGarden: function() {
@@ -100,14 +100,29 @@
           this.openSide = false;
       },
       editGarden: function(gardenButton) {
-        // this.$router.push({
-        //   name: 'EditGarden',
-        //   params: { id: gardenButton.slug },//slug and this params can maybe be removed everywhere
-        //   query: {
-        //     docname: gardenButton.id,
-        //     name: gardenButton.name} })
         this.docname = gardenButton.id;
         this.gardenname = gardenButton.name;
+
+        // let that = this;
+        // see https://firebase.google.com/docs/firestore/query-data/get-data "Get all documents in a collection"
+        db.collection('users')
+          .doc( auth.currentUser.email )
+          .collection('gardens')
+          .doc ( this.docname )
+          .collection('controllers').get().then(function(querySnapshot) {
+            // let arr = [];
+            querySnapshot.forEach(function(doc) {
+              console.log(doc.id);
+              // arr.push(doc.id);
+            });
+            // that.controllers = arr;
+          }).catch(function(err){
+            console.log("oops " + err);
+          });
+        // console.log('it is..')
+        // console.log(this.controllers);
+        // console.log(this.controllers);
+
       },
       generateUUID () {
         let d = new Date().getTime()
@@ -138,6 +153,25 @@
           );
       },
       connect () {
+        let numOfNextController = this.controllers.length + 1;
+
+        let controllerId = "controller_";
+        controllerId += (numOfNextController < 10) ? "0" + numOfNextController
+          : numOfNextController;
+
+        let defaultNameOfController = "Controller " + numOfNextController;
+
+        db.collection('users')
+          .doc( auth.currentUser.email )
+          .collection('gardens')
+          .doc( this.docname )
+          .collection('controllers')
+          .doc( controllerId )
+          .set({
+            name: defaultNameOfController,
+            slug: this.generateUUID()
+          });
+
         this.$router.push({
 
           name: 'Connect',
@@ -153,17 +187,13 @@
     data () {
       return {
         gardens: [],
+        controllers: [],
         openSide: false,
-        // currentGarden: 'EditGarden',
         gardenname: 'Garden 1', //default name
         docname: 'garden_01', //default docname,
         garden: {}
       }
     },
-    // created () {
-      // this.gardenname = this.$route.query.name; how did it input the query.name?
-      // this.docname = this.$route.query.docname;
-    // },
     firestore () {
       return {
         gardens: db.collection('users')
@@ -177,12 +207,6 @@
 </script>
 
 <style>
-  /* .button {
-    margin: 10px 0;
-  } */
-  .text-input {
-    text-align: center;
-  }
   .margin-top {
     margin: 50px 0px 10px;
   }
@@ -192,7 +216,7 @@
   .gardenTitle .text-input{
     font-size: 30px;
     height: 40px;
+    color: black;
+    text-align: center;
   }
-
-  /* make sure this page is scrollable, in case the user adds lots of gardens */
 </style>

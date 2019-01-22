@@ -40,12 +40,9 @@ p a {
   border-radius: 8px;
 }
 .email-form {
-  /* background: transparent; */
+  background: transparent;
   width: 275px;
   border-radius: 8px;
-}
-v-ons-input {
-  color: white;
 }
 .redirect-btns {
   display: flex;
@@ -60,4 +57,7 @@ v-ons-input {
 }
 .light-violet {
   color: #E8DEFF
+}
+.alert-dialog-content input{
+  color: #29187D;
 }
