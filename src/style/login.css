@@ -20,7 +20,7 @@ h3 {
   align-items: center;
 }
 .button-margin {
-  margin-top: 40px;
+  margin-bottom: 20px;
 }
 p {
   margin-top: 40px;
@@ -61,3 +61,6 @@ p a {
 .alert-dialog-content input{
   color: #29187D;
 }
+/* .back-button {
+  fill: white;
+} */

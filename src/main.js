@@ -13,6 +13,7 @@ import VueOnsen from 'vue-onsenui'  // This imports 'onsenui', so no need to imp
 
 import App from './App.vue'
 import router from './router'
+import config from './config.js'
 
 Vue.use(VueFire)
 Vue.use(VueOnsen)  // VueOnsen set here as plugin to VUE. Done automatically if a call to window.Vue exists in the startup code.
@@ -21,15 +22,6 @@ Vue.config.productionTip = false
 let app = '';
 
 // Initialize Firebase
-let config = {
-  apiKey: "***REMOVED***",
-  authDomain: "***REMOVED***",
-  databaseURL: "***REMOVED***",
-  projectId: "***REMOVED***",
-  storageBucket: "***REMOVED***.appspot.com",
-  messagingSenderId: "***REMOVED***"
-};
-
 firebase.initializeApp(config)
 export const db = firebase.firestore()
 const settings = {/* your settings... */ timestampsInSnapshots: true};
