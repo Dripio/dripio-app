@@ -9,6 +9,7 @@ import 'firebase/database'
 import VueFire from 'vuefire'
 import VueOnsen from 'vue-onsenui'  // This imports 'onsenui', so no need to import it separately
 // /simport WifiWizard2 from 'plugins/wifiwizard2'
+import config from './config.js'
 
 import App from './App.vue'
 import router from './router'
@@ -20,15 +21,6 @@ Vue.config.productionTip = false
 let app = '';
 
 // Initialize Firebase
-let config = {
-  apiKey: "***REMOVED***",
-  authDomain: "***REMOVED***",
-  databaseURL: "***REMOVED***",
-  projectId: "***REMOVED***",
-  storageBucket: "***REMOVED***.appspot.com",
-  messagingSenderId: "***REMOVED***"
-};
-
 firebase.initializeApp(config)
 export const db = firebase.firestore()
 const settings = {/* your settings... */ timestampsInSnapshots: true};
