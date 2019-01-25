@@ -13,7 +13,8 @@ import VueOnsen from 'vue-onsenui'  // This imports 'onsenui', so no need to imp
 
 import App from './App.vue'
 import router from './router'
-import config from './config.js'
+import { config } from './config.js'
+
 
 Vue.use(VueFire)
 Vue.use(VueOnsen)  // VueOnsen set here as plugin to VUE. Done automatically if a call to window.Vue exists in the startup code.

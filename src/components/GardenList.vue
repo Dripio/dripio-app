@@ -59,6 +59,9 @@
               </ons-icon>
             </v-ons-fab>
           </div>
+          <div>
+            Current weather in Portland, OR: {{ this.weather }}
+          </div>
 
         </v-ons-page>
       </template>
@@ -74,6 +77,10 @@
   import { auth } from '../main'
   import firebase from 'firebase'
   // import EditGarden from './EditGarden.vue'
+  import axios from 'axios'
+
+  // import { weatherApiKey, weatherAPI } from './config.js'
+  import { weatherApiKey, weatherAPI } from '../config.js'
 
   export default {
     name: 'GardenList',
@@ -182,7 +189,12 @@
             garden: this.garden
           }
         })
-      }
+      },
+      // loadWeather: function () {
+      //   weatherAPI
+      //     .get('api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey)
+      //     .then(response => (this.weather = response))
+      // }
     },
     data () {
       return {
@@ -191,7 +203,8 @@
         openSide: false,
         gardenname: 'Garden 1', //default name
         docname: 'garden_01', //default docname,
-        garden: {}
+        garden: {},
+        weather: {}
       }
     },
     firestore () {
@@ -200,7 +213,18 @@
           .doc( auth.currentUser.email )
           .collection('gardens')
       }
+    },
+    mounted () {
+      axios
+        .get('https://api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey)
+        .then(response => {
+          console.log(response);
+          this.weather = response
+        })
     }
+    // created: function () {
+    //   this.loadWeather();
+    // }
   }
 
 
