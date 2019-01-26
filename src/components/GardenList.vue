@@ -82,6 +82,8 @@
   // import { weatherApiKey, weatherAPI } from './config.js'
   import { weatherApiKey, weatherAPI } from '../config.js'
 
+  const STORAGE_KEY = 'weather-storage';
+
   export default {
     name: 'GardenList',
     methods: {
@@ -215,16 +217,28 @@
       }
     },
     mounted () {
-      axios
-        .get('https://api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey)
-        .then(response => {
-          console.log(response);
-          this.weather = response
-        })
+      // if weather report check time has not yet been set, then get the time
+      // OR if it's been over an hour since last weather check
+      if (!this.weather.reportTime || Date.now() - this.weather.reportTime > 3.6e+6){
+        axios
+          // get the current weather for Portland, OR, using the city code.
+          // Later, get current position and use coordinates for the api call
+          // And eventually, get rid of api, and just access device's native weather info
+          // like Android's. See https://developers.google.com/android/reference/com/google/android/gms/awareness/state/Weather
+          .get('https://api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey)
+          .then(response => {
+            this.weather = response
+            this.weather.reportTime = Date.now();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(this.weather));
+          })
+
+      }
+    },
+    created: function () {
+      this.weather = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      // this.loadWeather();
+      // when page is loaded, if localstorage has weather, load the local storage of weather
     }
-    // created: function () {
-    //   this.loadWeather();
-    // }
   }
 
 
