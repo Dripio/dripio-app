@@ -1,6 +1,7 @@
 <template id="main">
   <v-ons-splitter>
 
+    <!-- Side Menu with list of gardens -->
     <v-ons-splitter-side
       swipeable width="150px" collapse="" side="left"
       :open.sync="openSide">
@@ -18,39 +19,54 @@
       </v-ons-page>
     </v-ons-splitter-side>
 
+    <!-- Garden settings with option to add a controller -->
     <v-ons-splitter-content>
       <template id="editGarden">
         <v-ons-page>
+
+          <!-- top bar -->
           <v-ons-toolbar style="background: #29187D; height: 100px;">
-          <div class="left">
-            <v-ons-back-button @click="openSide = true" style="height: 100px;" class="button white-text"></v-ons-back-button>
+
+            <!-- back button to open list of gardens -->
+            <div class="left">
+              <v-ons-back-button @click="openSide = true" style="height: 100px;" class="button white-text"></v-ons-back-button>
+            </div>
+
+            <!-- Dripio logo -->
+            <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center">
+              <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg">
+            </div>
+
+            <!-- Additional div to center the back button and logo -->
+            <div class="right">
+              <div style="width: 16px;"></div>
+            </div>
+          </v-ons-toolbar>
+
+          <!-- Weather bar -->
+          <!-- Separate this into a separate component-->
+          <div class="weather">
+            <p class="temperature">{{ this.weather.data.main.temp }}˚F</p>
+            <p>{{ this.weather.data.weather[0].description }} </p>
+            <div class="hr"></div>
+            <!-- Precipitation data is not available with the free tier of OpenWeather API -->
+            <!-- Another reason to get weather data from native code -->
+            <p class="weather-details">Humidity: {{ this.weather.data.main.humidity }}%</p>
           </div>
-          <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center">
-            <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg">
-          </div>
-          <div class="right">
-            <div style="width: 16px;"></div>
-          </div>
-        </v-ons-toolbar>
-          <div class="margin-top" style="padding-top: 70px">
+
+          <!-- Name of Garden () -->
+          <div style="padding-top: 70px">
             <v-ons-input class="gardenTitle" v-model="gardenname" @change="updateName"></v-ons-input>
           </div>
 
-
-          <!-- Later: use a v-if to make this conditionally display, only if user makes any changes -->
-          <!-- <div class="margin-top">Your garden will be updated to {{ gardenname }} when you click the button.</div>
-          <div>
-            <v-ons-button @click="updateName">Update Garden Name</v-ons-button>
-          </div> -->
-          <!-- <div>
-            List of existing controllers, if any, goes here.
-          </div> -->
-          <v-ons-list-item v-for="controller in controllers"
-            tappable
-
-          >
+          <!-- List of available controllers -->
+          <!-- Fix this by making sure controllers are
+          correctly being saved to firebase in Connect.vue -->
+          <v-ons-list-item v-for="controller in controllers" tappable>
             <div class="center">{{ controller }}</div>
           </v-ons-list-item>
+
+          <!-- Interface to discover/add a new controller -->
           <div class="margin-top">
             <p>Add a Dripio Controller</p>
             <v-ons-fab ripple @click="connect" style="background: #29187D">
@@ -58,9 +74,6 @@
                 icon="ion-wifi, material:wifi" class="white-text">
               </ons-icon>
             </v-ons-fab>
-          </div>
-          <div>
-            Current weather in Portland, OR: {{ this.weather }}
           </div>
 
         </v-ons-page>
@@ -192,11 +205,9 @@
           }
         })
       },
-      // loadWeather: function () {
-      //   weatherAPI
-      //     .get('api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey)
-      //     .then(response => (this.weather = response))
-      // }
+      capitalize (str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
     },
     data () {
       return {
@@ -225,13 +236,17 @@
           // Later, get current position and use coordinates for the api call
           // And eventually, get rid of api, and just access device's native weather info
           // like Android's. See https://developers.google.com/android/reference/com/google/android/gms/awareness/state/Weather
-          .get('https://api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey)
+          .get('https://api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey + '&units=imperial')
           .then(response => {
             this.weather = response
             this.weather.reportTime = Date.now();
+            this.weather.data.weather[0].description = this.capitalize(this.weather.data.weather[0].description);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(this.weather));
           })
-
+          .catch(err => {
+            // Make this into a nicer OnsenUI alert
+            alert('API limit for mock-up app reached. Weather information will be inaccurate. Please check back later.')
+          })
       }
     },
     created: function () {
@@ -240,8 +255,6 @@
       // when page is loaded, if localstorage has weather, load the local storage of weather
     }
   }
-
-
 </script>
 
 <style>

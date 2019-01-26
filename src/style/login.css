@@ -61,6 +61,34 @@ p a {
 .alert-dialog-content input{
   color: #29187D;
 }
+.weather {
+  height: 150px;
+  background-color: rgba(41,24,125, 0.92);
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 50px;
+  padding-left: 10px;
+}
+.weather p {
+  margin: 2px;
+}
+.temperature {
+  font-size: 2em;
+}
+/* Horizontal line */
+.hr {
+  background: rgba(255, 255, 255, 0.3);
+  width: 100px;
+  height: 1px;
+  margin: 10px 0;
+}
+.weather-details {
+  font-size: 90%;
+  color: rgba(255, 255, 255, 0.9);
+}
 /* .back-button {
   fill: white;
 } */
