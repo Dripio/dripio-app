@@ -2,19 +2,21 @@
   <v-ons-splitter>
 
     <!-- Side Menu with list of gardens -->
+    <!-- Make this a dropdown menu from the top middle -->
     <v-ons-splitter-side
-      swipeable width="150px" collapse="" side="left"
+      swipeable width="150px" collapse="" side="right"
       :open.sync="openSide">
       <v-ons-page>
         <v-ons-list>
-          <v-ons-list-item @click="addGarden" class="button white-text">Add Garden</v-ons-list-item>
-          <v-ons-list-item v-for="garden in gardens.slice().reverse()"
-            tappable modifier="chevron"
-            @click="editGarden(garden); openSide = false"
-          >
-            <div class="center">{{ garden.name }}</div>
+          <v-ons-list-item @click="addGarden" class="button white-text">
+            Add Garden
           </v-ons-list-item>
+          <!-- <v-ons-list-item @click="openSide = false">
+          </v-ons-list-item> -->
+
+          <!-- Put the log out on a top right menu, along with a link to our homepage, privacy notice, version. -->
           <v-ons-list-item tappable @click="logout" class="button white-text">Logout</v-ons-list-item>
+
         </v-ons-list>
       </v-ons-page>
     </v-ons-splitter-side>
@@ -28,17 +30,38 @@
           <v-ons-toolbar style="background: #29187D; height: 100px;">
 
             <!-- back button to open list of gardens -->
-            <div class="left">
-              <v-ons-back-button @click="openSide = true" style="height: 100px;" class="button white-text"></v-ons-back-button>
+            <div class="right">
+              <v-ons-toolbar-button
+                @click="openSide = true"
+                style="height: 100px; display: flex; align-items: center"
+                class="button white-text"
+                >
+                <v-ons-icon
+                  icon="ion-navicon, material:md-menu"
+                  style="font-size:36px"
+                  ></v-ons-icon>
+              </v-ons-toolbar-button>
             </div>
 
-            <!-- Dripio logo -->
-            <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center">
-              <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg">
+            <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center; align-items: center;">
+
+              <v-ons-select
+                style="width: 70%; height: 2em; padding: 2em;"
+                v-model="gardenname"
+              >
+                <option
+                  v-for="garden in gardens.slice().reverse()"
+                  @change="editGarden(garden)"
+                >
+                  {{ garden.name }}
+                </option>
+              </v-ons-select>
+              <!-- Use the logo with this placement on other pages.-->
+              <!-- <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg"> -->
             </div>
 
             <!-- Additional div to center the back button and logo -->
-            <div class="right">
+            <div class="left">
               <div style="width: 16px;"></div>
             </div>
           </v-ons-toolbar>
@@ -61,7 +84,8 @@
 
           <!-- List of available controllers -->
           <!-- Fix this by making sure controllers are
-          correctly being saved to firebase in Connect.vue -->
+          correctly being saved to firebase in Connect.vue, or use localstorage for now. -->
+          <!-- Make this list be a carousel under the top bar. -->
           <v-ons-list-item v-for="controller in controllers" tappable>
             <div class="center">{{ controller }}</div>
           </v-ons-list-item>
@@ -75,6 +99,8 @@
               </ons-icon>
             </v-ons-fab>
           </div>
+
+          <!-- Add the list of valves (see Connect.vue) here, as a list under controllers -->
 
         </v-ons-page>
       </template>
@@ -217,7 +243,8 @@
         gardenname: 'Garden 1', //default name
         docname: 'garden_01', //default docname,
         garden: {},
-        weather: {}
+        weather: {},
+        // location: ''
       }
     },
     firestore () {
@@ -236,12 +263,15 @@
           // Later, get current position and use coordinates for the api call
           // And eventually, get rid of api, and just access device's native weather info
           // like Android's. See https://developers.google.com/android/reference/com/google/android/gms/awareness/state/Weather
-          .get('https://api.openweathermap.org/data/2.5/weather?id=5746545&APPID=' + weatherApiKey + '&units=imperial')
+          // Denver, CO city ID is 5419384 on openWeatherMap API.
+          // Portland, OR, 5746545
+          .get('https://api.openweathermap.org/data/2.5/weather?id=5419384&APPID=' + weatherApiKey + '&units=imperial')
           .then(response => {
             this.weather = response
-            this.weather.reportTime = Date.now();
-            this.weather.data.weather[0].description = this.capitalize(this.weather.data.weather[0].description);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(this.weather));
+            this.weather.reportTime = Date.now()
+            this.weather.data.main.temp = parseInt(this.weather.data.main.temp)
+            this.weather.data.weather[0].description = this.capitalize(this.weather.data.weather[0].description)
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(this.weather))
           })
           .catch(err => {
             // Make this into a nicer OnsenUI alert
@@ -250,7 +280,7 @@
       }
     },
     created: function () {
-      this.weather = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      this.weather = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
       // this.loadWeather();
       // when page is loaded, if localstorage has weather, load the local storage of weather
     }

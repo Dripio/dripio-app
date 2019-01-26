@@ -89,6 +89,11 @@ p a {
   font-size: 90%;
   color: rgba(255, 255, 255, 0.9);
 }
+/* Dropdown list, e.g., for list of gardens */
+.select-input {
+  font-size: 26px;
+  color: white;
+}
 /* .back-button {
   fill: white;
 } */
