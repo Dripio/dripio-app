@@ -62,6 +62,11 @@ firebase.auth().onAuthStateChanged((user) => {
               name: "Garden 1",
               slug: generateUUID(),
               id: "garden_01",
+              controllers: [
+                {
+                  id: "controller_00"
+                }
+              ]
             });
         }
       })

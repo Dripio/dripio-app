@@ -16,6 +16,7 @@
 
           <!-- Put the log out on a top right menu, along with a link to our homepage, privacy notice, version. -->
           <v-ons-list-item tappable @click="logout" class="button white-text">Logout</v-ons-list-item>
+          <!-- add current username here in sidebar-->
           <v-ons-button @click="inspectValues">Inspect</v-ons-button>
         </v-ons-list>
       </v-ons-page>
@@ -85,8 +86,10 @@
           <!-- Fix this by making sure controllers are
           correctly being saved to firebase in Connect.vue, or use localstorage for now. -->
           <v-ons-carousel swipeable auto-scroll overscrollable style="height: 125px" id="carousel">
+<!-- v-if="controllers.length === 0" -->
             <v-ons-carousel-item
-              v-if="controllers.length === 0">
+
+              >
               <!-- Code for this div is repeated below -->
               <!-- so turn this div into a reusable component -->
               <v-ons-button
@@ -96,9 +99,12 @@
                 Add a controller
               </v-ons-button>
             </v-ons-carousel-item>
+
+            <!-- v-for="(controller, index) in controllers" -->
+            <!-- v-else -->
             <v-ons-carousel-item
-              v-else
-              v-for="(controller, index) in controllers"
+
+
               style="padding: 20px; border-bottom: 1px solid rgba(41,24,125, 0.6)"
               class="control-carousel"
               >
@@ -106,9 +112,11 @@
               <div class="left"
                 style="display: flex; align-items: center">
                 <img height="50px" src="../style/Controller.svg">
+
+                <!-- v-if="index > 0" -->
                 <v-ons-toolbar-button
                   @click="prev()"
-                  v-if="index > 0"
+
                   style="display: flex; align-items: center">
                   <v-ons-icon icon="md-chevron-left"></v-ons-icon>
                 </v-ons-toolbar-button>
@@ -116,7 +124,7 @@
               <!-- Name of Controller -->
               <div
                 style="text-align: center; font-size: 30px; display: flex; align-items: center">
-                {{ controller.name }}
+                <!-- {{ controller.name }} -->
               </div>
 
               <!-- Carousel forward button -->
@@ -124,14 +132,18 @@
                 class="right"
                 style="display: flex; align-items: center"
                 >
+
+                <!-- v-if="index < controllers.length - 1" -->
                 <v-ons-toolbar-button
                   @click="next()"
-                  v-if="index < controllers.length - 1"
+
                   style="display: flex; align-items: center">
                   <v-ons-icon icon="md-chevron-right"></v-ons-icon>
                 </v-ons-toolbar-button>
+
+                <!-- v-else -->
                 <v-ons-button
-                  v-else
+
 
                   >
                   <v-ons-icon
@@ -209,8 +221,15 @@
           .set({
             name: defaultNameOfGarden,
             slug: this.generateUUID(),
-            id: gardenId
-          });
+            id: gardenId,
+            controllers: [
+              {
+                id: "controller_00"
+              }
+            ]
+          })
+
+
           // this.gardenname = defaultNameOfGarden;
           // this.docname = gardenId;
 
@@ -218,27 +237,27 @@
       },
       updateGardenView: function() {
 
-        let linkToCurrentControllers = `users/${auth.currentUser.email}/gardens/${this.gardens[this.selectedGarden].id}/controllers`;
-
-        this.controllers = [];
-        let that = this;
-        db.collection(linkToCurrentControllers).get().then(function(querySnapshot){
-
-          querySnapshot.forEach(function(doc) {
-            console.log(doc.data());
-            that.controllers.push(doc.data());
-            console.log(that.controllers)
-            console.log("-----------")
-            // else {
-            //   console.log('there were no controllers')
-            //   this.controllers = []
-            // }
-
-          })
-        })
-        .catch(function(err){
-          console.log('Whoops: ' + err)
-        });
+        // let linkToCurrentControllers = `users/${auth.currentUser.email}/gardens/${this.gardens[this.selectedGarden].id}/controllers`;
+        //
+        // this.controllers = [];
+        // let that = this;
+        // db.collection(linkToCurrentControllers).get().then(function(querySnapshot){
+        //
+        //   querySnapshot.forEach(function(doc) {
+        //     console.log(doc.data());
+        //     that.controllers.push(doc.data());
+        //     console.log(that.controllers)
+        //     console.log("-----------")
+        //     // else {
+        //     //   console.log('there were no controllers')
+        //     //   this.controllers = []
+        //     // }
+        //
+        //   })
+        // })
+        // .catch(function(err){
+        //   console.log('Whoops: ' + err)
+        // });
 
         // and once it has succesfully been retrieved, assign it to this.controllers
 
@@ -294,34 +313,49 @@
         //   );
       },
       connect: function () {
-        let numOfNextController = this.controllers.length + 1;
+        // array of existing controllers
+        let ctrArr = this.gardens[this.selectedGarden].controllers;
+        // check what garden the page is on & length of controllers array in that garden
+        let controllerCount = ctrArr.length;
+
+        let noControllersYet =
+          // if there's only one controller
+          (controllerCount === 1
+          // and if that controlelr doesn't have a name
+          && !ctrArr[0].name) ?
+          true : false;
+
+        // if no controllers yet, clear the placeholder in the controllers array.
+        if (noControllersYet)
+          ctrArr = [];
+
+        // Set the number of the next controller
+        let numOfNextController = noControllersYet ? 1 : controllerCount + 1;
+
 
         let controllerId = "controller_";
         controllerId += (numOfNextController < 10) ? "0" + numOfNextController
           : numOfNextController;
-        console.log('controllerId is ' + controllerId);
-        let defaultNameOfController = "Controller " + numOfNextController;
+
+        let controllerName = "Controller " + numOfNextController;
+
+        console.log(`Adding controller with id ${controllerId} & ${controllerName}`);
+
+        ctrArr.push({
+          id: controllerId,
+          name: controllerName
+        });
 
         db
           .collection("users").doc(auth.currentUser.email)
           .collection("gardens").doc(this.gardens[this.selectedGarden].id)
-          .collection("controllers").doc(controllerId)
           .set({
-            name: defaultNameOfController,
-            id: controllerId
-          });
-          // add the new controller to the gardens array instead of the controllers array
-          this.gardens[this.selectedGarden].controllers = [{
-            name: defaultNameOfController,
-            id: controllerId
-          }];
+            controllers: ctrArr
+          }, { merge: true });
       },
       inspectValues: function() {
         console.log('gardens is ')
         console.log(this.gardens)
-        console.log('controllers is ')
-        console.log(this.controllers)
-        console.log(this.gardens[this.selectedGarden].id)
         console.log(`and selectedGarden is ${ this.selectedGarden }`)
       },
       capitalize (str) {
@@ -331,17 +365,12 @@
     data () {
       return {
         gardens: [],
-        controllers: [],
         openSide: false,
-        // gardenname: 'Garden 1', //default name
-        // docname: 'garden_01', //default docname,
-        // garden: {},
         weather: {},
         selectedGarden: 0
         // location: ''
       }
     },
-
         // Valid options for source are 'server', 'cache', or
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
         // for more information.
@@ -357,39 +386,9 @@
         gardens: db.collection('users')
           .doc( auth.currentUser.email )
           .collection( 'gardens' ),
-        controllers: db.collection('users')
-          .doc( auth.currentUser.email )
-          .collection( 'gardens')
-          .doc( 'garden_01')
-          .collection( 'controllers' )
       }
     },
-    mounted () {
-      // if weather report check time has not yet been set, then get the time
-      // OR if it's been over an hour since last weather check
-
-      // this.controllers = db.collection( `users/${auth.currentUser.email}/gardens/${this.gardens[this.selectedGarden]}`)
-      // let controllerName = this.gardens[this.selectedGarden].id
-      // console.log(this.gardens)
-      // db.collection(`users/${auth.currentUser.email}/gardens`)
-      // .where("name", "==", controllerName)
-      // .get()
-      // .then(function(querySnapshot) {
-      //   console.log(querySnapshot)
-      //     // querySnapshot.forEach(function(doc) {
-      //     //     // doc.data() is never undefined for query doc snapshots
-      //     //     console.log(doc.id, " => ", doc.data());
-      //     //     // this.controllers.push(doc);
-      //   // });
-      // })
-      // .catch(function(error) {
-      //     console.log("Error getting documents: ", error);
-      // });
-
-    },
     created: function () {
-
-
       if (!this.weather.reportTime || Date.now() - this.weather.reportTime > 3.6e+6){
         axios
           // get the current weather for Portland, OR, using the city code.
