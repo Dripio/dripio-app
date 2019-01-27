@@ -60,7 +60,8 @@ firebase.auth().onAuthStateChanged((user) => {
             .doc("garden_01")
             .set({
               name: "Garden 1",
-              slug: generateUUID()
+              slug: generateUUID(),
+              id: "garden_01",
             });
         }
       })

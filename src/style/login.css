@@ -50,7 +50,8 @@ p a {
   justify-content: space-around;
 }
 .page__background {
-  background-color: #E8DEFF;
+  /* background-color: #E8DEFF; */
+  background-color: #FAF8FF;
 }
 .button {
   background-color: #29187D;
@@ -93,6 +94,10 @@ p a {
 .select-input {
   font-size: 26px;
   color: white;
+}
+.control-carousel {
+  display: flex;
+  justify-content: space-evenly;
 }
 /* .back-button {
   fill: white;

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="71px" viewBox="0 0 72 71" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 23</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M40.9806,36.4043 C43.0476,36.4043 44.7236,34.7653 44.7236,32.7453 C44.7236,30.7233 41.6676,25.7203 40.9806,25.7203 C40.2936,25.7203 37.2376,30.7233 37.2376,32.7453 C37.2376,34.7653 38.9136,36.4043 40.9806,36.4043 M40.9596,40.4313 C36.8426,40.4313 34.5546,40.4313 33.0596,38.9383 C31.5656,37.4453 31.5656,35.1593 31.5656,31.0473 C31.5656,26.9343 31.5656,24.6483 33.0596,23.1563 C34.5546,21.6633 36.8426,21.6633 40.9596,21.6633 C45.0766,21.6633 47.3656,21.6633 48.8596,23.1563 C50.3546,24.6483 50.3546,26.9343 50.3546,31.0473 C50.3546,35.1593 50.3546,37.4453 48.8596,38.9383 C47.3656,40.4313 45.0766,40.4313 40.9596,40.4313" id="path-1"></path>
+        <filter x="-5.3%" y="-5.3%" width="110.6%" height="110.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.2987149 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Controller" transform="translate(-64.000000, -252.000000)">
+            <g id="Group-23" transform="translate(64.000000, 253.000000)">
+                <path d="M57.6759,62.9346 L57.6759,67.5856" id="Stroke-1" stroke="#4456AE" stroke-linecap="round"></path>
+                <path d="M55.4767,62.9346 L55.4767,67.5856" id="Stroke-2" stroke="#4456AE" stroke-linecap="round"></path>
+                <path d="M53.2296,62.9346 L53.2296,67.5856" id="Stroke-3" stroke="#4456AE" stroke-linecap="round"></path>
+                <path d="M50.9826,62.9346 L50.9826,67.5856" id="Stroke-4" stroke="#4456AE" stroke-linecap="round"></path>
+                <g id="Group-22">
+                    <path d="M59.6798,61.5947 L19.9858,61.5947 C13.5898,61.5947 8.4058,56.4097 8.4058,50.0147 L8.4058,12.0797 C8.4058,5.6847 13.5898,0.4997 19.9858,0.4997 L59.6798,0.4997 C66.0758,0.4997 71.2598,5.6847 71.2598,12.0797 L71.2598,50.0147 C71.2598,56.4097 66.0758,61.5947 59.6798,61.5947 Z" id="Stroke-5" stroke="#4456AE"></path>
+                    <g id="Fill-7" fill-rule="nonzero">
+                        <use fill="#4456AE" xlink:href="#path-1"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    </g>
+                    <path d="M57.7755,62.9346 L51.1825,62.9356 C50.0975,62.9346 49.2205,63.8136 49.2215,64.8966 L49.2285,68.9156 C49.2285,69.2386 49.4915,69.4996 49.8135,69.4996 L59.1645,69.4996 C59.4875,69.4996 59.7485,69.2386 59.7485,68.9156 L59.7425,64.8966 C59.7405,63.8136 58.8605,62.9346 57.7755,62.9346 Z" id="Stroke-9" stroke="#4456AE" stroke-linecap="round"></path>
+                    <polygon id="Stroke-11" stroke="#4456AE" stroke-linecap="round" points="50.983 62.935 57.676 62.935 57.676 61.595 50.983 61.595"></polygon>
+                    <polygon id="Stroke-13" stroke="#4456AE" stroke-linecap="round" points="21.86 64.021 30.236 64.021 30.236 61.595 21.86 61.595"></polygon>
+                    <polygon id="Stroke-14" stroke="#4456AE" stroke-linecap="round" points="21.86 66.447 30.236 66.447 30.236 64.02 21.86 64.02"></polygon>
+                    <polygon id="Stroke-15" stroke="#4456AE" stroke-linecap="round" points="21.86 68.874 30.236 68.874 30.236 66.447 21.86 66.447"></polygon>
+                    <path d="M7.0646,23.5537 L2.4146,23.5537" id="Stroke-16" stroke="#4456AE" stroke-linecap="round"></path>
+                    <path d="M7.0646,21.3545 L2.4146,21.3545" id="Stroke-17" stroke="#4456AE" stroke-linecap="round"></path>
+                    <path d="M7.0646,19.1074 L2.4146,19.1074" id="Stroke-18" stroke="#4456AE" stroke-linecap="round"></path>
+                    <path d="M7.0646,16.8604 L2.4146,16.8604" id="Stroke-19" stroke="#4456AE" stroke-linecap="round"></path>
+                    <path d="M7.0646,23.6533 L7.0646,17.0593 C7.0646,15.9753 6.1866,15.0983 5.1036,15.0993 L1.0846,15.1053 C0.7616,15.1063 0.5006,15.3683 0.5006,15.6913 L0.5006,25.0423 C0.5006,25.3643 0.7616,25.6263 1.0846,25.6253 L5.1036,25.6193 C6.1866,25.6173 7.0656,24.7373 7.0646,23.6533 Z" id="Stroke-20" stroke="#4456AE" stroke-linecap="round"></path>
+                    <polygon id="Stroke-21" stroke="#4456AE" stroke-linecap="round" points="7.064 23.553 8.405 23.553 8.405 16.86 7.064 16.86"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
