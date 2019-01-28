@@ -49,15 +49,15 @@
 <!-- @change="editGarden(garden)" -->
 <!-- v-model="gardens[selectedGarden]" -->
               <v-ons-select
-                style="width: 70%; height: 2em; padding: 2em;"
-                @change="updateGardenView"
+                style="width: 70%; height: 2em; padding: 1.2em;"
                 v-model="selectedGarden"
+                v-on:change="first"
               >
                 <option
                   v-for="(garden, index) in gardens"
                   v-bind:value="index"
+                  @click="first"
                 >
-                  <!-- {{ garden.name }} -->
                   {{ garden.name }}
                 </option>
               </v-ons-select>
@@ -86,10 +86,8 @@
           <!-- Fix this by making sure controllers are
           correctly being saved to firebase in Connect.vue, or use localstorage for now. -->
           <v-ons-carousel swipeable auto-scroll overscrollable style="height: 125px" id="carousel">
-<!-- v-if="controllers.length === 0" -->
-            <v-ons-carousel-item
 
-              >
+            <v-ons-carousel-item v-if="controllers.length === 1 && !controllers[0].name">
               <!-- Code for this div is repeated below -->
               <!-- so turn this div into a reusable component -->
               <v-ons-button
@@ -100,11 +98,8 @@
               </v-ons-button>
             </v-ons-carousel-item>
 
-            <!-- v-for="(controller, index) in controllers" -->
-            <!-- v-else -->
-            <v-ons-carousel-item
-
-
+            <v-ons-carousel-item v-else
+              v-for="(controller, index) in controllers"
               style="padding: 20px; border-bottom: 1px solid rgba(41,24,125, 0.6)"
               class="control-carousel"
               >
@@ -112,19 +107,21 @@
               <div class="left"
                 style="display: flex; align-items: center">
                 <img height="50px" src="../style/Controller.svg">
-
-                <!-- v-if="index > 0" -->
                 <v-ons-toolbar-button
                   @click="prev()"
-
+                  v-if="index > 0"
                   style="display: flex; align-items: center">
-                  <v-ons-icon icon="md-chevron-left"></v-ons-icon>
+                  <v-ons-icon
+                    icon="md-chevron-left"
+                    style="padding: 5px"
+                    ></v-ons-icon>
                 </v-ons-toolbar-button>
               </div>
+
               <!-- Name of Controller -->
               <div
                 style="text-align: center; font-size: 30px; display: flex; align-items: center">
-                <!-- {{ controller.name }} -->
+                {{ controller.name }}
               </div>
 
               <!-- Carousel forward button -->
@@ -133,18 +130,18 @@
                 style="display: flex; align-items: center"
                 >
 
-                <!-- v-if="index < controllers.length - 1" -->
                 <v-ons-toolbar-button
                   @click="next()"
-
+                  v-if="index < controllers.length - 1"
                   style="display: flex; align-items: center">
-                  <v-ons-icon icon="md-chevron-right"></v-ons-icon>
+                  <v-ons-icon
+                    icon="md-chevron-right"
+                    style="padding: 5px"
+                    ></v-ons-icon>
                 </v-ons-toolbar-button>
 
-                <!-- v-else -->
                 <v-ons-button
-
-
+                  v-else
                   >
                   <v-ons-icon
                   @click="$ons.notification
@@ -193,16 +190,17 @@
   export default {
     name: 'GardenList',
     methods: {
-      confirmAddController() {
-        console.log('hello there')
-      },
       prev: function() {
-        var carousel = document.getElementById('carousel');
+        let carousel = document.getElementById('carousel');
         carousel.prev();
       },
       next: function() {
-        var carousel = document.getElementById('carousel');
+        let carousel = document.getElementById('carousel');
         carousel.next();
+      },
+      first: function() {
+        let carousel = document.getElementById('carousel');
+        carousel.first();
       },
       // perhaps consolidate main.js to use this addGarden function in the initial garden creation.
       addGarden: function() {
@@ -214,6 +212,8 @@
 
         let defaultNameOfGarden = "Garden " + numOfNextGarden;
 
+        let that = this;
+        // save the new garden to firestore
         db.collection('users')
           .doc( auth.currentUser.email )
           .collection('gardens')
@@ -222,64 +222,26 @@
             name: defaultNameOfGarden,
             slug: this.generateUUID(),
             id: gardenId,
-            controllers: [
-              {
-                id: "controller_00"
-              }
-            ]
+            controllers: [{ id: "controller_00" }]
+          }).then(function(){
+            // *** ADD THINKING CIRCLE TRANSITION HERE **
+            // switch to the new garden
+            that.selectedGarden = that.gardens.length - 1;
           })
 
-
-          // this.gardenname = defaultNameOfGarden;
-          // this.docname = gardenId;
-
+          // close side menu
           this.openSide = false;
       },
-      updateGardenView: function() {
-
-        // let linkToCurrentControllers = `users/${auth.currentUser.email}/gardens/${this.gardens[this.selectedGarden].id}/controllers`;
-        //
-        // this.controllers = [];
-        // let that = this;
-        // db.collection(linkToCurrentControllers).get().then(function(querySnapshot){
-        //
-        //   querySnapshot.forEach(function(doc) {
-        //     console.log(doc.data());
-        //     that.controllers.push(doc.data());
-        //     console.log(that.controllers)
-        //     console.log("-----------")
-        //     // else {
-        //     //   console.log('there were no controllers')
-        //     //   this.controllers = []
-        //     // }
-        //
-        //   })
-        // })
-        // .catch(function(err){
-        //   console.log('Whoops: ' + err)
-        // });
-
-        // and once it has succesfully been retrieved, assign it to this.controllers
-
-      },
       editGarden: function(gardenButton) {
-        // console.log('editGarden was called and gardenButton.id is ' + gardenButton.id)
-        // this.docname = gardenButton.id;
-        // this.gardenname = gardenButton.name;
-
-        // let that = this;
         // see https://firebase.google.com/docs/firestore/query-data/get-data "Get all documents in a collection"
         db.collection('users')
           .doc( auth.currentUser.email )
           .collection('gardens')
           .doc ( gardenButton.id )
           .collection('controllers').get().then(function(querySnapshot) {
-            // let arr = [];
             querySnapshot.forEach(function(doc) {
               console.log(doc.id);
-              // arr.push(doc.id);
             });
-            // that.controllers = arr;
           }).catch(function(err){
             console.log("oops " + err);
           });
@@ -367,9 +329,14 @@
         gardens: [],
         openSide: false,
         weather: {},
-        selectedGarden: 0
+        selectedGarden: 0,
         // location: ''
       }
+    },
+    computed: {
+      controllers: function () {
+        return this.gardens[this.selectedGarden].controllers;
+      },
     },
         // Valid options for source are 'server', 'cache', or
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
@@ -381,13 +348,19 @@
         // Get a document, forcing the SDK to fetch from the offline cache.
         // docRef.get(getOptions).then(function(doc) {
     firestore: function () {
-      console.log('now it\'s good')
       return {
         gardens: db.collection('users')
           .doc( auth.currentUser.email )
           .collection( 'gardens' ),
       }
     },
+    // watch: function () {
+    //   // https://vuejs.org/v2/guide/computed.html#Computed-vs-Watched-Property
+    //   // https://github.com/yuche/vue-strap/issues/291
+    //   selectedGarden: function () {
+    //     this.first();
+    //   }
+    // },
     created: function () {
       if (!this.weather.reportTime || Date.now() - this.weather.reportTime > 3.6e+6){
         axios
