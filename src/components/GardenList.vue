@@ -1,27 +1,6 @@
 <template id="main">
   <v-ons-splitter>
 
-    <!-- Side Menu with list of gardens -->
-    <!-- Make this a dropdown menu from the top middle -->
-    <v-ons-splitter-side
-      swipeable width="150px" collapse="" side="right"
-      :open.sync="openSide">
-      <v-ons-page>
-        <v-ons-list>
-          <v-ons-list-item @click="addGarden" class="button white-text">
-            Add Garden
-          </v-ons-list-item>
-          <!-- <v-ons-list-item @click="openSide = false">
-          </v-ons-list-item> -->
-
-          <!-- Put the log out on a top right menu, along with a link to our homepage, privacy notice, version. -->
-          <v-ons-list-item tappable @click="logout" class="button white-text">Logout</v-ons-list-item>
-          <!-- add current username here in sidebar-->
-          <v-ons-button @click="inspectValues">Inspect</v-ons-button>
-        </v-ons-list>
-      </v-ons-page>
-    </v-ons-splitter-side>
-
     <!-- Garden settings with option to add a controller -->
     <!-- Show this if there are no controllers in the data.controllers array -->
     <v-ons-splitter-content>
@@ -85,7 +64,7 @@
           <!-- List of available controllers -->
           <!-- Fix this by making sure controllers are
           correctly being saved to firebase in Connect.vue, or use localstorage for now. -->
-          <v-ons-carousel swipeable auto-scroll overscrollable style="height: 125px" id="carousel">
+          <v-ons-carousel swipeable auto-scroll overscrollable id="carousel">
 
             <v-ons-carousel-item v-if="controllers.length === 1 && !controllers[0].name">
               <!-- Code for this div is repeated below -->
@@ -99,60 +78,59 @@
             </v-ons-carousel-item>
 
             <v-ons-carousel-item v-else
-              v-for="(controller, index) in controllers"
-              style="padding: 20px; border-bottom: 1px solid rgba(41,24,125, 0.6)"
-              class="control-carousel"
-              >
-              <!-- Carousel back button & controller graphic -->
-              <div class="left"
-                style="display: flex; align-items: center">
-                <img height="50px" src="../style/Controller.svg">
-                <v-ons-toolbar-button
-                  @click="prev()"
-                  v-if="index > 0"
+              v-for="(controller, index) in controllers">
+              <div style="display: flex; justify-content: space-evenly; padding: 20px; border-bottom: 1px solid rgba(41,24,125, 0.6)">
+                <!-- Carousel back button & controller graphic -->
+                <div class="left"
                   style="display: flex; align-items: center">
-                  <v-ons-icon
-                    icon="md-chevron-left"
-                    style="padding: 5px"
-                    ></v-ons-icon>
-                </v-ons-toolbar-button>
-              </div>
+                  <img height="50px" src="../style/Controller.svg">
+                  <v-ons-toolbar-button
+                    @click="prev()"
+                    v-if="index > 0"
+                    style="display: flex; align-items: center">
+                    <v-ons-icon
+                      icon="md-chevron-left"
+                      style="padding: 5px"
+                      ></v-ons-icon>
+                  </v-ons-toolbar-button>
+                </div>
 
-              <!-- Name of Controller -->
-              <div
-                style="text-align: center; font-size: 30px; display: flex; align-items: center">
-                {{ controller.name }}
-              </div>
+                <!-- Name of Controller -->
+                <div
+                  style="text-align: center; font-size: 30px; display: flex; align-items: center">
+                  {{ controller.name }}
+                </div>
 
-              <!-- Carousel forward button -->
-              <div
-                class="right"
-                style="display: flex; align-items: center"
-                >
-
-                <v-ons-toolbar-button
-                  @click="next()"
-                  v-if="index < controllers.length - 1"
-                  style="display: flex; align-items: center">
-                  <v-ons-icon
-                    icon="md-chevron-right"
-                    style="padding: 5px"
-                    ></v-ons-icon>
-                </v-ons-toolbar-button>
-
-                <v-ons-button
-                  v-else
+                <!-- Carousel forward button -->
+                <div
+                  class="right"
+                  style="display: flex; align-items: center"
                   >
-                  <v-ons-icon
-                  @click="$ons.notification
-                    .confirm('Would you like to add another controller?')
-                    .then((response) => {
-                      connect()
-                    })"
-                    icon="md-plus">
-                  </v-ons-icon>
-                </v-ons-button>
-              </div>
+
+                  <v-ons-toolbar-button
+                    @click="next()"
+                    v-if="index < controllers.length - 1"
+                    style="display: flex; align-items: center">
+                    <v-ons-icon
+                      icon="md-chevron-right"
+                      style="padding: 5px"
+                      ></v-ons-icon>
+                  </v-ons-toolbar-button>
+
+                  <v-ons-button
+                    v-else
+                    >
+                    <v-ons-icon
+                    @click="$ons.notification
+                      .confirm('Would you like to add another controller?')
+                      .then((response) => {
+                        connect()
+                      })"
+                      icon="md-plus">
+                    </v-ons-icon>
+                  </v-ons-button>
+                </div>
+            </div>
 
               <!-- FIND A NEW PLACE FOR EDITING THE GARDEN NAME -->
               <!-- Perhaps let people edit it inside of a dialogue box,
@@ -166,11 +144,53 @@
               </div> -->
 
               <!-- Add the list of valves (see Connect.vue) here, as a list under controllers -->
+              <div>
+                <v-ons-list>
+
+                <!--  -->
+                  <v-ons-list-item tappable
+                    v-for="valve in controller.valves">
+
+                    <label>{{ valve.name }}</label>
+                    <div class="right">
+                      <v-ons-switch checked></v-ons-switch>
+                    </div>
+                  </v-ons-list-item>
+                </v-ons-list>
+              </div>
+
             </v-ons-carousel-item>
           </v-ons-carousel>
+          <!-- End of controller/valve carousel -->
         </v-ons-page>
       </template>
     </v-ons-splitter-content>
+
+    <!-- Side menu to log out, add garden, and see username,-->
+    <!-- privacy policy, terms of use, website -->
+    <v-ons-splitter-side
+      swipeable width="150px" collapse="" side="right"
+      :open.sync="openSide">
+      <v-ons-page>
+        <v-ons-list>
+          <v-ons-list-item>
+            Welcome, {{ currentUser }}!
+          </v-ons-list-item>
+          <v-ons-list-item @click="addGarden" class="button white-text">
+            Add Garden
+          </v-ons-list-item>
+          <!-- <v-ons-list-item @click="openSide = false">
+          </v-ons-list-item> -->
+
+          <!-- Put the log out on a top right menu, along with a link to our homepage, privacy notice, version. -->
+          <v-ons-list-item tappable @click="logout" class="button white-text">Logout</v-ons-list-item>
+          <!-- add current username here in sidebar-->
+          <v-ons-button @click="inspectValues">Inspect</v-ons-button>
+        </v-ons-list>
+      </v-ons-page>
+    </v-ons-splitter-side>
+    <!-- End of side menu -->
+
   </v-ons-splitter>
 </template>
 
@@ -305,7 +325,24 @@
 
         ctrArr.push({
           id: controllerId,
-          name: controllerName
+          name: controllerName,
+          valves: [
+            { id: "valve_01",
+              name: "Tomato box"
+            }, {
+              id: "valve_02",
+              name: "Cucumber box"
+            }, {
+              id: "valve_03",
+              name: "Blueberry bush"
+            }, {
+              id: "valve_04",
+              name: "McIntosh apple tree"
+            }, {
+              id: "valve_05",
+              name: "The rest of the garden"
+            }
+          ]
         });
 
         db
@@ -322,6 +359,12 @@
       },
       capitalize (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
+      },
+      updateName () {
+        //update name in database
+      },
+      addNewValve (name) {
+        // this.valves.push(name)
       }
     },
     data () {
@@ -330,6 +373,7 @@
         openSide: false,
         weather: {},
         selectedGarden: 0,
+        currentUser: auth.currentUser.email
         // location: ''
       }
     },
@@ -337,6 +381,9 @@
       controllers: function () {
         return this.gardens[this.selectedGarden].controllers;
       },
+      // valves: function () {
+      //   return this.gardens[this.selectedGarden].controllers[index].valves;
+      // },
     },
         // Valid options for source are 'server', 'cache', or
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions

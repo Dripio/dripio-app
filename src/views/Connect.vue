@@ -12,7 +12,6 @@
             <div class="right" style="height: 100px;">
               <div style="width: 16px;"></div>
             </div>
-
           </v-ons-toolbar>
 
           <div class="sm-margin-top">{{ $route.params.name }}</div>
@@ -32,29 +31,20 @@
               <ons-icon @click="updateName"
                 icon="ion-ios-plus, material:md-plus" size="24px, material:16px">
               </ons-icon>
-            </v-ons-button></v-ons-list-header>
+            </v-ons-button>
+          </v-ons-list-header>
 
-            <v-ons-list>
+          <v-ons-list>
             <!--v-on:remove="valves.splice(index, 1)" can be added later-->
             <!-- v-on:click="$emit(\'remove\')" can be added later-->
-            <v-ons-list-item tappable
-              v-for="(valve, index) in valves"
-              >
-              <!-- <div class="center">
-                {{ valve }}
-              </div> -->
-            <label>{{ valve }}</label>
-            <div class="right">
-
-              <v-ons-switch
-                checked
-              >
-              </v-ons-switch>
-            </div>
+            <v-ons-list-item tappable v-for="(valve, index) in valves">
+              <label>{{ valve }}</label>
+              <div class="right">
+                <v-ons-switch checked></v-ons-switch>
+              </div>
             </v-ons-list-item>
           </v-ons-list>
-
-
+          
         </v-ons-page>
     </template>
   </div>
