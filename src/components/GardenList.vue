@@ -93,7 +93,9 @@
                     <label>{{ valve.name }}</label>
                     <!-- toggle on/off -->
                     <div class="right">
-                      <v-ons-switch v-bind:checked="valve.checked" @change="updateOnOff">
+                      <!-- font-size 1 to hide the index numbers -->
+                      <v-ons-switch v-bind:checked="valve.checked" @change="updateOnOff"
+                        style="font-size: 1px">
                         {{ index }}</v-ons-switch></div>
                     <!-- end of toggle -->
                   </v-ons-list-item>
@@ -113,7 +115,7 @@
       <v-ons-page>
         <v-ons-list>
           <!-- welcome message -->
-          <v-ons-list-item> Welcome, {{ currentUser }}!</v-ons-list-item>
+          <v-ons-list-item> Welcome, {{ username }}!</v-ons-list-item>
 
           <!-- add garden button -->
           <v-ons-list-item @click="addGarden"> Add Garden</v-ons-list-item>
@@ -346,6 +348,10 @@
       },
       currentUser: function () {
         return auth.currentUser.email;
+      },
+      username: function () {
+        let i = this.currentUser.search(/@/);
+        return this.currentUser.slice(0, i);
       },
       linkToCurrentGarden: function () {
         return `users/${auth.currentUser.email}/gardens/${this.selectedGardenId}`;
