@@ -1,16 +1,16 @@
 <template id="main">
   <v-ons-splitter>
-
-    <!-- Garden settings with option to add a controller -->
-    <!-- Show this if there are no controllers in the data.controllers array -->
     <v-ons-splitter-content>
       <template id="editGarden">
         <v-ons-page>
-
           <!-- top bar -->
           <v-ons-toolbar style="background: #29187D; height: 100px;">
 
-            <!-- back button to open list of gardens -->
+            <!-- Empty div to center the other elements in top bar-->
+            <div class="left">
+              <div style="width: 16px;"></div>
+            </div>
+            <!-- menu button to open side menu -->
             <div class="right">
               <v-ons-toolbar-button
                 @click="openSide = true"
@@ -24,141 +24,82 @@
               </v-ons-toolbar-button>
             </div>
 
-            <div class="toolbar__center" style="height: 100px; display: flex; justify-content: center; align-items: center;">
-<!-- @change="editGarden(garden)" -->
-<!-- v-model="gardens[selectedGarden]" -->
-              <v-ons-select
-                style="width: 70%; height: 2em; padding: 1.2em;"
-                v-model="selectedGarden"
-                v-on:change="first"
-              >
-                <option
-                  v-for="(garden, index) in gardens"
-                  v-bind:value="index"
-                  @click="first"
-                >
+            <!-- garden selector dropdown menu -->
+            <div class="toolbar__center">
+              <v-ons-select style="height: 2em" v-model="selectedGarden" @change="first">
+                <option v-for="(garden, index) in gardens" v-bind:value="index">
                   {{ garden.name }}
                 </option>
               </v-ons-select>
-              <!-- Use the logo with this placement on other pages.-->
-              <!-- <img alt="Vue logo" class="login-logo-x-small login-logo" src="../assets/logo.svg"> -->
-            </div>
-
-            <!-- Additional div to center the back button and logo -->
-            <div class="left">
-              <div style="width: 16px;"></div>
             </div>
           </v-ons-toolbar>
+          <!-- end of top bar -->
 
-          <!-- Weather bar -->
-          <!-- Separate this into a separate component-->
+          <!-- weather bar. To-do: separate into a separate component -->
           <div class="weather">
             <p class="temperature">{{ this.weather.data.main.temp }}˚F</p>
             <p>{{ this.weather.data.weather[0].description }} </p>
             <div class="hr"></div>
-            <!-- Precipitation data is not available with the free tier of OpenWeather API -->
-            <!-- Another reason to get weather data from native code -->
+            <!-- precipitation data is not available with the free tier of OpenWeather API-->
+            <!-- another reason to get weather data from native code -->
             <p class="weather-details">Humidity: {{ this.weather.data.main.humidity }}%</p>
           </div>
 
-          <!-- List of available controllers -->
-          <!-- Fix this by making sure controllers are
-          correctly being saved to firebase in Connect.vue, or use localstorage for now. -->
-          <v-ons-carousel swipeable auto-scroll overscrollable id="carousel">
+          <!-- Carousel (horizontally sliding list) of available controllers & valves -->
+          <v-ons-carousel swipeable auto-scroll overscrollable
+            v-bind:index.sync="index" id="carousel">
 
+            <!-- If no controllers added yet, show 'Add controller' button -->
             <v-ons-carousel-item v-if="controllers.length === 1 && !controllers[0].name">
               <!-- Code for this div is repeated below -->
               <!-- so turn this div into a reusable component -->
-              <v-ons-button
-                @click="connect"
-                modifier="large"
-                style="background-image: linear-gradient(to right, #f6efff, white, #f6efff); color: black; font-size: 1em; padding: 15px">
+              <v-ons-button @click="connect" modifier="large" class="big-lightpink-btn">
                 Add a controller
               </v-ons-button>
             </v-ons-carousel-item>
 
-            <v-ons-carousel-item v-else
-              v-for="(controller, index) in controllers">
-              <div style="display: flex; justify-content: space-evenly; padding: 20px; border-bottom: 1px solid rgba(41,24,125, 0.6)">
-                <!-- Carousel back button & controller graphic -->
-                <div class="left"
-                  style="display: flex; align-items: center">
+            <!-- controllers -->
+            <v-ons-carousel-item v-else v-for="(controller, i) in controllers">
+              <div class="carousel-controller">
+
+                <!-- carousel back button & svg graphic of a dripio controller -->
+                <div class="left flex-align-ctr">
                   <img height="50px" src="../style/Controller.svg">
-                  <v-ons-toolbar-button
-                    @click="prev()"
-                    v-if="index > 0"
-                    style="display: flex; align-items: center">
-                    <v-ons-icon
-                      icon="md-chevron-left"
-                      style="padding: 5px"
-                      ></v-ons-icon>
-                  </v-ons-toolbar-button>
-                </div>
+                  <v-ons-toolbar-button @click="prev()" v-if="i > 0" class="flex-align-ctr">
+                    <v-ons-icon icon="md-chevron-left" style="padding: 5px"></v-ons-icon>
+                  </v-ons-toolbar-button></div>
+                  <!-- end of back button -->
 
-                <!-- Name of Controller -->
-                <div
-                  style="text-align: center; font-size: 30px; display: flex; align-items: center">
-                  {{ controller.name }}
-                </div>
+                <div class="controller-name">{{ controller.name }}</div>
 
-                <!-- Carousel forward button -->
-                <div
-                  class="right"
-                  style="display: flex; align-items: center"
-                  >
-
-                  <v-ons-toolbar-button
-                    @click="next()"
-                    v-if="index < controllers.length - 1"
-                    style="display: flex; align-items: center">
-                    <v-ons-icon
-                      icon="md-chevron-right"
-                      style="padding: 5px"
-                      ></v-ons-icon>
+                <div class="right flex-align-ctr">
+                  <!-- next controller button -->
+                  <v-ons-toolbar-button @click="next()" v-if="i<end" class="flex-align-ctr">
+                    <v-ons-icon icon="md-chevron-right" style="padding: 5px"></v-ons-icon>
                   </v-ons-toolbar-button>
 
-                  <v-ons-button
-                    v-else
-                    >
-                    <v-ons-icon
-                    @click="$ons.notification
+                  <!-- add controller button -->
+                  <v-ons-button v-else>
+                    <v-ons-icon @click="$ons.notification
                       .confirm('Would you like to add another controller?')
-                      .then((response) => {
-                        connect()
-                      })"
-                      icon="md-plus">
-                    </v-ons-icon>
-                  </v-ons-button>
-                </div>
-            </div>
+                      .then((response) => connect())" icon="md-plus"></v-ons-icon>
+                  </v-ons-button></div></div>
+            <!-- end of controllers (first div in carousel)-->
 
-              <!-- FIND A NEW PLACE FOR EDITING THE GARDEN NAME -->
-              <!-- Perhaps let people edit it inside of a dialogue box,
-              or in right side bar -->
-              <!-- <div style="padding-top: 70px">
-                <v-ons-input
-                  class="gardenTitle"
-                  v-model="gardenname"
-                  @change="updateName">
-                </v-ons-input>
-              </div> -->
-
-              <!-- Add the list of valves (see Connect.vue) here, as a list under controllers -->
+            <!-- valves (second div in carousel) -->
               <div>
                 <v-ons-list>
-
-                <!--  -->
-                  <v-ons-list-item tappable
-                    v-for="valve in controller.valves">
-
+                  <v-ons-list-item tappable v-for="(valve, index) in controller.valves">
                     <label>{{ valve.name }}</label>
+                    <!-- toggle on/off -->
                     <div class="right">
-                      <v-ons-switch checked></v-ons-switch>
-                    </div>
+                      <v-ons-switch v-bind:checked="valve.checked" @change="updateOnOff">
+                        {{ index }}</v-ons-switch></div>
+                    <!-- end of toggle -->
                   </v-ons-list-item>
                 </v-ons-list>
               </div>
-
+              <!-- end of valves (second div in carousel)-->
             </v-ons-carousel-item>
           </v-ons-carousel>
           <!-- End of controller/valve carousel -->
@@ -166,26 +107,19 @@
       </template>
     </v-ons-splitter-content>
 
-    <!-- Side menu to log out, add garden, and see username,-->
-    <!-- privacy policy, terms of use, website -->
+    <!-- Side menu: log out, add garden, see username, policy, terms, website -->
     <v-ons-splitter-side
-      swipeable width="150px" collapse="" side="right"
-      :open.sync="openSide">
+      swipeable width="150px" collapse="" side="right" :open.sync="openSide">
       <v-ons-page>
         <v-ons-list>
-          <v-ons-list-item>
-            Welcome, {{ currentUser }}!
-          </v-ons-list-item>
-          <v-ons-list-item @click="addGarden" class="button white-text">
-            Add Garden
-          </v-ons-list-item>
-          <!-- <v-ons-list-item @click="openSide = false">
-          </v-ons-list-item> -->
+          <!-- welcome message -->
+          <v-ons-list-item> Welcome, {{ currentUser }}!</v-ons-list-item>
 
-          <!-- Put the log out on a top right menu, along with a link to our homepage, privacy notice, version. -->
-          <v-ons-list-item tappable @click="logout" class="button white-text">Logout</v-ons-list-item>
-          <!-- add current username here in sidebar-->
-          <v-ons-button @click="inspectValues">Inspect</v-ons-button>
+          <!-- add garden button -->
+          <v-ons-list-item @click="addGarden"> Add Garden</v-ons-list-item>
+
+          <!-- logout button -->
+          <v-ons-list-item tappable @click="logout">Logout</v-ons-list-item>
         </v-ons-list>
       </v-ons-page>
     </v-ons-splitter-side>
@@ -196,8 +130,7 @@
 
 <script>
   // import database and info on who's logged in
-  import { db } from '../main'
-  import { auth } from '../main'
+  import { db, auth } from '../main'
   import firebase from 'firebase'
   // import EditGarden from './EditGarden.vue'
   import axios from 'axios'
@@ -280,19 +213,39 @@
           this.$router.replace('login')
         })
       },
-      updateName () {
-        // let gardenRef = db.collection('users')
-        //   .doc( auth.currentUser.email )
-        //   .collection('gardens')
-        //   .doc ( this.docname );
-        //
-        // this.garden = gardenRef;
+      updateOnOff (event) {
+        // array of existing controllers
+        let ctrArr = this.gardens[this.selectedGarden].controllers;
+        // index of toggled valve
+        let valveIndex = +event.target.innerText;
+        // is toggle off or on?
+        let valveOn = event.value;
 
-        // gardenRef
-        //   .set(
-        //     { name: this.gardenname },
-        //     { merge: true } // probably can be removed
-        //   );
+        console.log(`valve ${valveIndex} toggled to ${valveOn}`);
+
+        ctrArr[this.index].valves[valveIndex].checked = valveOn;
+
+        console.log(ctrArr);
+
+        // let clickedValveOn = ctrArr[this.index].valves
+
+        // if valve is on, print that , if not, print that
+        // ... test that a bit and write observations
+
+        // if valve is on, change it's value to off
+        // and include that in the db.set() operation.
+
+          db
+            .collection("users").doc(auth.currentUser.email)
+            .collection("gardens").doc(this.selectedGardenId)
+            .set({
+              controllers: ctrArr
+            }, { merge: true })
+            .then(()=>{
+              console.log(`inside the success of updateOnOff:`)
+              console.log(ctrArr)
+            })
+            .catch((err)=>console.log(`it didn't work: ${err}`));
       },
       connect: function () {
         // array of existing controllers
@@ -314,7 +267,6 @@
         // Set the number of the next controller
         let numOfNextController = noControllersYet ? 1 : controllerCount + 1;
 
-
         let controllerId = "controller_";
         controllerId += (numOfNextController < 10) ? "0" + numOfNextController
           : numOfNextController;
@@ -328,26 +280,31 @@
           name: controllerName,
           valves: [
             { id: "valve_01",
-              name: "Tomato box"
+              name: "Tomato box",
+              checked: false
             }, {
               id: "valve_02",
-              name: "Cucumber box"
+              name: "Cucumber box",
+              checked: false
             }, {
               id: "valve_03",
-              name: "Blueberry bush"
+              name: "Blueberry bush",
+              checked: false
             }, {
               id: "valve_04",
-              name: "McIntosh apple tree"
+              name: "McIntosh apple tree",
+              checked: false
             }, {
               id: "valve_05",
-              name: "The rest of the garden"
+              name: "The rest of the garden",
+              checked: false
             }
           ]
         });
 
         db
           .collection("users").doc(auth.currentUser.email)
-          .collection("gardens").doc(this.gardens[this.selectedGarden].id)
+          .collection("gardens").doc(this.selectedGardenId)
           .set({
             controllers: ctrArr
           }, { merge: true });
@@ -373,7 +330,7 @@
         openSide: false,
         weather: {},
         selectedGarden: 0,
-        currentUser: auth.currentUser.email
+        index: 0
         // location: ''
       }
     },
@@ -381,9 +338,18 @@
       controllers: function () {
         return this.gardens[this.selectedGarden].controllers;
       },
-      // valves: function () {
-      //   return this.gardens[this.selectedGarden].controllers[index].valves;
-      // },
+      end: function () {
+        return this.controllers.length - 1;
+      },
+      selectedGardenId: function () {
+        return this.gardens[this.selectedGarden].id;
+      },
+      currentUser: function () {
+        return auth.currentUser.email;
+      },
+      linkToCurrentGarden: function () {
+        return `users/${auth.currentUser.email}/gardens/${this.selectedGardenId}`;
+      }
     },
         // Valid options for source are 'server', 'cache', or
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
@@ -395,6 +361,7 @@
         // Get a document, forcing the SDK to fetch from the offline cache.
         // docRef.get(getOptions).then(function(doc) {
     firestore: function () {
+      console.log('firestore function was called');
       return {
         gardens: db.collection('users')
           .doc( auth.currentUser.email )
@@ -427,12 +394,11 @@
           })
           .catch(err => {
             // Make this into a nicer OnsenUI alert
-            alert('API limit for mock-up app reached. Weather information will be inaccurate. Please check back later.')
+            alert(`API limit for mock-up app reached.
+              Weather information will be inaccurate. Please check back later.`)
           })
       }
       this.weather = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
-      // this.loadWeather();
-      // when page is loaded, if localstorage has weather, load the local storage of weather
     }
   }
 </script>

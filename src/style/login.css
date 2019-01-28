@@ -7,6 +7,12 @@
 .login-logo-x-small {
   height: 70px;
 }
+.toolbar__center{
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 h3 {
   font-weight: 200;
   font-size: 2em;
@@ -24,7 +30,7 @@ h3 {
 }
 p {
   margin-top: 40px;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 .white-text {
   color: white;
@@ -70,7 +76,7 @@ p a {
   color: white;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 25px;
+  margin-top: 35px;
   padding-left: 10px;
 }
 .weather p {
@@ -94,6 +100,28 @@ p a {
 .select-input {
   font-size: 26px;
   color: white;
+}
+.big-lightpink-btn{
+  background-image: linear-gradient(to right, #f6efff, white, #f6efff);
+  color: black;
+  font-size: 1em;
+  padding: 15px;
+}
+.carousel-controller{
+  display: flex;
+  justify-content:
+  space-evenly;
+  padding: 20px;
+  border-bottom: 1px solid rgba(41,24,125, 0.6);
+}
+.controller-name {
+  text-align: center;
+  font-size: 24px;
+  display: flex;
+  align-items: center
+}
+.flex-align-ctr{
+  display: flex; align-items: center;
 }
 /* .back-button {
   fill: white;
