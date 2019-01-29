@@ -10,17 +10,14 @@
             <div class="left">
               <div style="width: 16px;"></div>
             </div>
+
             <!-- menu button to open side menu -->
             <div class="right">
               <v-ons-toolbar-button
-                @click="openSide = true"
-                style="height: 100px; display: flex; align-items: center"
-                class="button white-text"
-                >
-                <v-ons-icon
-                  icon="ion-navicon, material:md-menu"
-                  style="font-size:36px"
-                  ></v-ons-icon>
+                @click="openSide = true" style="height: 100px"
+                class="button white-text flex-align-ctr">
+                <v-ons-icon icon="ion-navicon, material:md-menu" style="font-size:36px">
+                  </v-ons-icon>
               </v-ons-toolbar-button>
             </div>
 
@@ -94,9 +91,9 @@
                     <!-- toggle on/off -->
                     <div class="right">
                       <!-- font-size 1 to hide the index numbers -->
-                      <v-ons-switch v-bind:checked="valve.checked" @change="updateOnOff"
+                      <v-ons-switch v-model="valve.checked" @change="updateOnOff"
                         style="font-size: 1px">
-                        {{ index }}</v-ons-switch></div>
+                        {{ index }} </v-ons-switch></div>
                     <!-- end of toggle -->
                   </v-ons-list-item>
                 </v-ons-list>
