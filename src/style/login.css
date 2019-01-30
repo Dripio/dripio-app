@@ -68,9 +68,11 @@ p a {
 .alert-dialog-content input{
   color: #29187D;
 }
+.lighter-dark-blue-bg{
+  background-color: rgba(41,24,125, 0.92);
+}
 .weather {
   height: 150px;
-  background-color: rgba(41,24,125, 0.92);
   display: flex;
   flex-direction: column;
   color: white;

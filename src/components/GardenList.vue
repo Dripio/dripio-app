@@ -33,13 +33,26 @@
           <!-- end of top bar -->
 
           <!-- weather bar. To-do: separate into a separate component -->
-          <div class="weather">
-            <p class="temperature">{{ this.weather.data.main.temp }}˚F</p>
-            <p>{{ this.weather.data.weather[0].description }} </p>
-            <div class="hr"></div>
-            <!-- precipitation data is not available with the free tier of OpenWeather API-->
-            <!-- another reason to get weather data from native code -->
-            <p class="weather-details">Humidity: {{ this.weather.data.main.humidity }}%</p>
+          <div class="weather lighter-dark-blue-bg">
+            <div class="weather">
+              <p class="temperature">{{ this.weather.data.main.temp }}˚F</p>
+              <p>{{ this.weather.data.weather[0].description }} </p>
+              <div class="hr"></div>
+              <!-- precipitation data is not available with the free tier of OpenWeather API-->
+              <!-- another reason to get weather data from native code -->
+              <p class="weather-details">Humidity: {{ this.weather.data.main.humidity }}%</p>
+            </div>
+            <div>
+              <!-- {{ weatherIcon }} -->
+              <!-- <img v-attr="src:weatherIcon"> -->
+              <!-- <img :src="weatherIcon"> -->
+              <!-- <img v-attr="src:weatherIcon"> -->
+              <!-- <img v-attr="src:../assets/weather-icons/01n.png"> -->
+              <!-- <img src="../assets/weather-icons/01n.png"> -->
+              <img v-attr="src: ../assets/weather-icons/01n.png">
+              <!-- v-attr="src:weatherIcon" -->
+              <!-- this.weather.data.main.humidity -->
+            </div>
           </div>
 
           <!-- Carousel (horizontally sliding list) of available controllers & valves -->
@@ -329,7 +342,8 @@
         openSide: false,
         weather: {},
         selectedGarden: 0,
-        index: 0
+        index: 0,
+        weatherS: "../assets/weather-icons/01n.png"
         // location: ''
       }
     },
@@ -352,6 +366,10 @@
       },
       linkToCurrentGarden: function () {
         return `users/${auth.currentUser.email}/gardens/${this.selectedGardenId}`;
+      },
+      weatherIcon: function () {
+        let name = this.weather.data.weather[0].icon;
+        return `../assets/weather-icons/${name}.png`
       }
     },
         // Valid options for source are 'server', 'cache', or
