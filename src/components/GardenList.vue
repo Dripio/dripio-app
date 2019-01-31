@@ -33,17 +33,22 @@
           <!-- end of top bar -->
 
           <!-- weather bar. To-do: separate into a separate component -->
-          <div class="weather lighter-dark-blue-bg" style="justify-content: space-between; align-items: center">
-            <div class="weather" style="flex-direction: column; align-items: flex-start">
-              <p class="temperature">{{ this.weather.data.main.temp }}˚F</p>
-              <p>{{ this.weather.data.weather[0].description }} </p>
-              <div class="hr"></div>
-              <!-- precipitation data is not available with the free tier of OpenWeather API-->
-              <!-- another reason to get weather data from native code -->
-              <p class="weather-details">Humidity: {{ this.weather.data.main.humidity }}%</p>
-            </div>
-            <div>
-              <img v-bind:src="weatherIcon">
+          <div class="lighter-dark-blue-bg">
+            <!-- background div with weather icon -->
+            <div class="weather" v-bind:style="weatherBg">
+              <!-- container for weather info -->
+              <div class="weather flex-align-l" style="justify-content: flex-start; flex-direction: column; width: 100%">
+                <div>
+                  <h2 style="margin: 30px 0 0 0;">Seattle</h2>
+                  <p class="weather-details">{{ this.weather.data.weather[0].description }} </p>
+                </div>
+                <p class="temperature">{{ this.weather.data.main.temp }}˚<span style="font-size: 0.4em">F</span></p>
+                <!-- <div class="hr"></div> -->
+                <!-- precipitation data is not available with the free tier of OpenWeather API-->
+                <!-- another reason to get weather data from native code -->
+
+
+              </div>
             </div>
           </div>
 
@@ -55,7 +60,7 @@
             <v-ons-carousel-item v-if="controllers.length === 1 && !controllers[0].name">
               <!-- Code for this div is repeated below -->
               <!-- so turn this div into a reusable component -->
-              <v-ons-button @click="connect" modifier="large" class="big-lightpink-btn">
+              <v-ons-button @click="connect" modifier="large" style="font-size: 1em; padding: 15px" class="big-lightpink-btn">
                 Add a controller
               </v-ons-button>
             </v-ons-carousel-item>
@@ -118,12 +123,13 @@
         <v-ons-list>
           <!-- welcome message -->
           <v-ons-list-item> Welcome, {{ username }}!</v-ons-list-item>
+          <v-ons-list-item style="color:#585858">Humidity is {{ this.weather.data.main.humidity }}%</v-ons-list-item>
 
           <!-- add garden button -->
-          <v-ons-list-item @click="addGarden"> Add Garden</v-ons-list-item>
+          <v-ons-list-item @click="addGarden" class="big-lightpink-btn"> Add Garden</v-ons-list-item>
 
           <!-- logout button -->
-          <v-ons-list-item tappable @click="logout">Logout</v-ons-list-item>
+          <v-ons-list-item tappable @click="logout" class="big-lightgreen-btn">Logout</v-ons-list-item>
         </v-ons-list>
       </v-ons-page>
     </v-ons-splitter-side>
@@ -336,7 +342,7 @@
         selectedGarden: 0,
         index: 0,
         otherImg: '../assets/weather-icons/01n.png',
-        weatherS: "../assets/weather-icons/01n.png"
+        weatherS: "../assets/weather-icons/01n.png",
         // location: ''
       }
     },
@@ -363,6 +369,13 @@
       weatherIcon: function () {
         let name = this.weather.data.weather[0].icon;
         return require(`./weather-icons/${name}.png`);
+      },
+      weatherBg: function () {
+        return {
+          background: `url(${this.weatherIcon})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'right'
+        }
       }
     },
         // Valid options for source are 'server', 'cache', or
@@ -398,7 +411,8 @@
           // like Android's. See https://developers.google.com/android/reference/com/google/android/gms/awareness/state/Weather
           // Denver, CO city ID is 5419384 on openWeatherMap API.
           // Portland, OR, 5746545
-          .get('https://api.openweathermap.org/data/2.5/weather?id=5419384&APPID=' + weatherApiKey + '&units=imperial')
+          // Seattle, WA, 5809844
+          .get('https://api.openweathermap.org/data/2.5/weather?id=5809844&APPID=' + weatherApiKey + '&units=imperial')
           .then(response => {
             this.weather = response
             this.weather.reportTime = Date.now()

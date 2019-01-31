@@ -73,7 +73,6 @@ p a {
 }
 .weather {
   height: 150px;
-  display: flex;
   color: white;
   margin-top: 35px;
   padding-left: 10px;
@@ -82,19 +81,16 @@ p a {
   margin: 2px;
 }
 .temperature {
-  font-size: 2em;
+  font-size: 3.3em;
+  font-weight: 100;
 }
 /* Horizontal line */
-.hr {
+/* .hr {
   background: rgba(255, 255, 255, 0.3);
   width: 100px;
   height: 1px;
   margin: 10px 0;
-}
-.weather-details {
-  font-size: 90%;
-  color: rgba(255, 255, 255, 0.9);
-}
+} */
 /* Dropdown list, e.g., for list of gardens */
 .select-input {
   font-size: 26px;
@@ -103,8 +99,10 @@ p a {
 .big-lightpink-btn{
   background-image: linear-gradient(to right, #f6efff, white, #f6efff);
   color: black;
-  font-size: 1em;
-  padding: 15px;
+}
+.big-lightgreen-btn{
+  background-image: linear-gradient(to right, #F8FFEF, white, #F8FFEF);
+  color: black;
 }
 .carousel-controller{
   display: flex;
@@ -121,6 +119,9 @@ p a {
 }
 .flex-align-ctr{
   display: flex; align-items: center;
+}
+.flex-align-l{
+  display: flex; align-items: flex-start;
 }
 /* .back-button {
   fill: white;
