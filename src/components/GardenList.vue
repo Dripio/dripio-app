@@ -33,8 +33,8 @@
           <!-- end of top bar -->
 
           <!-- weather bar. To-do: separate into a separate component -->
-          <div class="weather lighter-dark-blue-bg">
-            <div class="weather">
+          <div class="weather lighter-dark-blue-bg" style="justify-content: space-between; align-items: center">
+            <div class="weather" style="flex-direction: column; align-items: flex-start">
               <p class="temperature">{{ this.weather.data.main.temp }}˚F</p>
               <p>{{ this.weather.data.weather[0].description }} </p>
               <div class="hr"></div>
@@ -43,15 +43,7 @@
               <p class="weather-details">Humidity: {{ this.weather.data.main.humidity }}%</p>
             </div>
             <div>
-              <!-- {{ weatherIcon }} -->
-              <!-- <img v-attr="src:weatherIcon"> -->
-              <!-- <img :src="weatherIcon"> -->
-              <!-- <img v-attr="src:weatherIcon"> -->
-              <!-- <img v-attr="src:../assets/weather-icons/01n.png"> -->
-              <!-- <img src="../assets/weather-icons/01n.png"> -->
-              <img v-attr="src: ../assets/weather-icons/01n.png">
-              <!-- v-attr="src:weatherIcon" -->
-              <!-- this.weather.data.main.humidity -->
+              <img v-bind:src="weatherIcon">
             </div>
           </div>
 
@@ -343,6 +335,7 @@
         weather: {},
         selectedGarden: 0,
         index: 0,
+        otherImg: '../assets/weather-icons/01n.png',
         weatherS: "../assets/weather-icons/01n.png"
         // location: ''
       }
@@ -369,7 +362,7 @@
       },
       weatherIcon: function () {
         let name = this.weather.data.weather[0].icon;
-        return `../assets/weather-icons/${name}.png`
+        return require(`./weather-icons/${name}.png`);
       }
     },
         // Valid options for source are 'server', 'cache', or
